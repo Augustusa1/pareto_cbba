@@ -57,7 +57,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Columna de Proyecciones -->
             <section class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos 2025-2026</h2>
+                <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos 2025-2026 (Ordenado por Variación)</h2>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white">
                         <thead class="bg-brand-red text-white">
@@ -65,6 +65,7 @@
                                 <th class="py-3 px-4 text-left">Cuenta</th>
                                 <th class="py-3 px-4 text-right">Proyectado (Bs)</th>
                                 <th class="py-3 px-4 text-right">Variación (Bs)</th>
+                                <th class="py-3 px-4 text-right">Variación (%)</th>
                             </tr>
                         </thead>
                         <tbody id="projection-table" class="divide-y divide-red-200"></tbody>
@@ -73,6 +74,7 @@
                                 <td class="py-3 px-4 text-left">TOTAL PROYECTADO</td>
                                 <td id="total-proyectado" class="py-3 px-4 text-right"></td>
                                 <td id="total-variacion" class="py-3 px-4 text-right"></td>
+                                <td></td> <!-- Celda vacía para la columna de porcentaje -->
                             </tr>
                         </tfoot>
                     </table>
@@ -120,31 +122,31 @@
 
     <script>
         const costData = [
-            { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 153141, premise: 0.08 },
-            { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 118434, premise: null },
-            { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 11905, premise: 0.20 },
-            { category: 'MANO DE OBRA', account: 'Horas Extras', value: 17788, premise: 0.08 },
-            { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 6760, premise: 0.40 },
-            { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 4319, premise: 0.05 },
-            { category: 'Costos Fijos', account: 'Depreciacion', value: 15794, fixed_change: 4174 },
-            { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 8902, premise: null },
-            { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2238, fixed_change: 2400 },
-            { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 588, premise: null },
-            { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 10562, fixed_change: 1110 },
-            { category: 'Costos Fijos', account: 'Servicios Externos', value: 5877, premise: 0.10 },
-            { category: 'Costos Fijos', account: 'Gastos Generales', value: 7003, fixed_change: 4200 },
-            { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 292804, premise: 0.20 },
-            { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 15441, premise: 0.25 },
-            { category: 'costos variables', account: 'Material Y Prod.Limpieza', value: 1832, premise: 0.30 },
-            { category: 'costos variables', account: 'Energia Electrica Y Agua', value: 4771, premise: 0.90 },
-            { category: 'costos variables', account: 'Mantenimiento Y Repuestos', value: 331, premise: 0.30 },
-            { category: 'costos variables', account: 'Materiales Escritorio Y Suministros', value: 8174, premise: 0.30 },
-            { category: 'costos variables', account: 'Baja De Productos', value: 377, premise: null },
-            { category: 'costos variables', account: 'Costo de Servicios Internos', value: 68737, premise: 0.08 },
-            { category: 'costos variables', account: 'Costo de servicio de areas de soporte', value: 9905, premise: 0.20 },
-            { category: 'costos variables', account: 'Mantenimiento Interno', value: 20, premise: 0.08 },
-            { category: 'costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 11645, premise: 0.08 },
-            { category: 'costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 8841, premise: 0.08 },
+            { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 153141, projected_value: 165392.81 },
+            { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 118434, projected_value: 127909.14 },
+            { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 11905, projected_value: 14286.06 },
+            { category: 'MANO DE OBRA', account: 'Horas Extras', value: 17788, projected_value: 19211.18 },
+            { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 6760, projected_value: 9464.39 },
+            { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 4319, projected_value: 4534.84 },
+            { category: 'Costos Fijos', account: 'Depreciacion', value: 15794, projected_value: 19968.36 },
+            { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 8902, projected_value: 8902.38 },
+            { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2238, projected_value: 4638.31 },
+            { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 588, projected_value: 588.00 },
+            { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 10562, projected_value: 11725.77 },
+            { category: 'Costos Fijos', account: 'Servicios Externos', value: 5877, projected_value: 6464.59 },
+            { category: 'Costos Fijos', account: 'Gastos Generales', value: 7003, projected_value: 11203.15 },
+            { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 292804, projected_value: 351364.40 },
+            { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 15441, projected_value: 19301.59 },
+            { category: 'costos variables', account: 'Material Y Prod.Limpieza', value: 1832, projected_value: 2381.54 },
+            { category: 'costos variables', account: 'Energia Electrica Y Agua', value: 4771, projected_value: 9065.72 },
+            { category: 'costos variables', account: 'Mantenimiento Y Repuestos', value: 331, projected_value: 429.76 },
+            { category: 'costos variables', account: 'Materiales Escritorio Y Suministros', value: 8174, projected_value: 10626.29 },
+            { category: 'costos variables', account: 'Baja De Productos', value: 377, projected_value: 377.34 },
+            { category: 'costos variables', account: 'Costo de Servicios Internos', value: 68737, projected_value: 74236.02 },
+            { category: 'costos variables', account: 'Costo de servicio de areas de soporte', value: 9905, projected_value: 11885.85 },
+            { category: 'costos variables', account: 'Mantenimiento Interno', value: 20, projected_value: 21.63 },
+            { category: 'costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 11645, projected_value: 12576.27 },
+            { category: 'costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 8841, projected_value: 9548.22 },
         ];
 
         // --- Llenado de Tablas ---
@@ -154,9 +156,10 @@
             let currentCategory = '';
             let totalProjected = 0;
             let totalVariation = 0;
+            const projectionData = []; // Array para almacenar y ordenar los datos de proyección
 
             costData.forEach(item => {
-                // Tabla de datos originales
+                // Tabla de datos originales (sin cambios)
                 if (item.category !== currentCategory) {
                     currentCategory = item.category;
                     const categoryRow = document.createElement('tr');
@@ -172,28 +175,38 @@
                 `;
                 originalTableBody.appendChild(originalRow);
 
-                // Tabla de proyecciones
-                let projectedCost = item.value;
-                if (item.premise !== null && item.premise !== undefined) {
-                    projectedCost = item.value * (1 + item.premise);
-                } else if (item.fixed_change !== null && item.fixed_change !== undefined) {
-                    projectedCost = item.fixed_change;
-                }
-                
+                // Calcular datos de proyección y guardarlos para ordenar
+                const projectedCost = item.projected_value;
                 const variation = projectedCost - item.value;
+                const percentageVariation = item.value !== 0 ? (variation / item.value) * 100 : 0;
                 totalProjected += projectedCost;
                 totalVariation += variation;
 
+                projectionData.push({
+                    account: item.account,
+                    projectedCost: projectedCost,
+                    variation: variation,
+                    percentageVariation: percentageVariation,
+                });
+            });
+
+            // Ordenar los datos de proyección por variación descendente
+            projectionData.sort((a, b) => b.variation - a.variation);
+
+            // Poblar la tabla de proyección con los datos ordenados
+            projectionData.forEach(data => {
                 const projectionRow = document.createElement('tr');
                 projectionRow.className = 'hover:bg-red-50';
                 projectionRow.innerHTML = `
-                    <td class="py-2 px-4">${item.account}</td>
-                    <td class="py-2 px-4 text-right">${projectedCost.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td class="py-2 px-4 text-right ${variation >= 0 ? 'text-green-600' : 'text-red-600'}">${variation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td class="py-2 px-4">${data.account}</td>
+                    <td class="py-2 px-4 text-right">${data.projectedCost.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td class="py-2 px-4 text-right ${data.variation > 0 ? 'text-green-600' : (data.variation < 0 ? 'text-red-600' : 'text-gray-600')}">${data.variation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td class="py-2 px-4 text-right ${data.variation > 0 ? 'text-green-600' : (data.variation < 0 ? 'text-red-600' : 'text-gray-600')}">${data.percentageVariation.toFixed(2)}%</td>
                 `;
                 projectionTableBody.appendChild(projectionRow);
             });
             
+            // Actualizar totales
             document.getElementById('total-proyectado').textContent = totalProjected.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             document.getElementById('total-variacion').textContent = totalVariation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         })();
