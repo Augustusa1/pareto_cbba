@@ -16,8 +16,10 @@
         .bg-brand-red { background-color: #991b1b; }
         .text-brand-red { color: #991b1b; }
         .border-brand-red { border-color: #991b1b; }
-        .ring-brand-red { ring-color: #991b1b; }
         .hover\:bg-brand-red-dark:hover { background-color: #7f1d1d; }
+        #chartModal {
+            display: none; /* Hidden by default */
+        }
     </style>
 </head>
 <body class="bg-red-50 text-gray-800">
@@ -28,86 +30,93 @@
             <p class="text-gray-600 mt-2">Identificación de Pareto y Proyección Futura</p>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Columna de Análisis y Proyecciones -->
-            <div class="lg:col-span-2">
-                <!-- Sección de Análisis Pareto -->
-                <section class="bg-white p-6 rounded-lg shadow-md mb-8">
-                    <h2 class="text-2xl font-semibold text-brand-red mb-4">Análisis de Pareto (80/20)</h2>
-                    <p class="text-gray-700 mb-4">
-                        El análisis de Pareto nos ayuda a identificar los "pocos vitales" de los "muchos triviales". En este caso, buscamos las cuentas de costo que representan aproximadamente el 80% del costo total. Al enfocarnos en estas cuentas clave, podemos lograr un impacto más significativo en la gestión de costos.
-                    </p>
-                    <div class="bg-red-100 border-l-4 border-brand-red text-brand-red p-4 rounded-md">
-                        <p><strong class="font-semibold">Conclusión del Análisis:</strong> Las cuentas de <strong>"Seguros Gral, Fletes De Producto"</strong> y <strong>"Sueldos Y Jornales"</strong> suman <strong>445,945 Bs</strong>, representando aproximadamente el <strong>56.6%</strong> del costo total. Si añadimos "Beneficios Sociales", estas tres cuentas constituyen el <strong>71.6%</strong> del total. Claramente, estos son los puntos críticos donde la gestión y optimización de costos tendrán el mayor impacto.
-                        </p>
-                    </div>
-                </section>
-
-                <!-- Sección de Proyección 2025-2026 -->
-                <section class="bg-white p-6 rounded-lg shadow-md">
-                    <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos Gestión 2025-2026</h2>
-                    <p class="text-gray-700 mb-4">
-                        A continuación, se presenta una proyección de los costos para el próximo período, aplicando los porcentajes de ajuste y premisas proporcionados. Esto nos da una visión del panorama financiero futuro.
-                    </p>
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white">
-                            <thead class="bg-brand-red text-white">
-                                <tr>
-                                    <th class="py-3 px-4 text-left">Cuenta</th>
-                                    <th class="py-3 px-4 text-right">Costo Proyectado (Bs)</th>
-                                    <th class="py-3 px-4 text-right">Variación (Bs)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="projection-table" class="divide-y divide-red-200">
-                                <!-- Las filas se insertarán aquí dinámicamente -->
-                            </tbody>
-                             <tfoot class="bg-red-200 font-bold">
-                                <tr>
-                                    <td class="py-3 px-4 text-left">TOTAL GENERAL PROYECTADO</td>
-                                    <td id="total-proyectado" class="py-3 px-4 text-right"></td>
-                                    <td id="total-variacion" class="py-3 px-4 text-right"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </section>
+        <!-- Sección de Análisis Pareto -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-semibold text-brand-red mb-4">Análisis de Pareto (80/20)</h2>
+            <p class="text-gray-700 mb-4">
+                El análisis de Pareto nos ayuda a identificar los "pocos vitales" de los "muchos triviales". En este caso, buscamos las cuentas de costo que representan aproximadamente el 80% del costo total. Al enfocarnos en estas cuentas clave, podemos lograr un impacto más significativo en la gestión de costos.
+            </p>
+            <div class="bg-red-100 border-l-4 border-brand-red text-brand-red p-4 rounded-md">
+                <p><strong class="font-semibold">Conclusión del Análisis:</strong> Las cuentas de <strong>"Seguros Gral, Fletes De Producto"</strong> y <strong>"Sueldos Y Jornales"</strong> suman <strong>445,945 Bs</strong>, representando aproximadamente el <strong>56.6%</strong> del costo total. Si añadimos "Beneficios Sociales", estas tres cuentas constituyen el <strong>71.6%</strong> del total. Claramente, estos son los puntos críticos donde la gestión y optimización de costos tendrán el mayor impacto.
+                </p>
             </div>
-
-            <!-- Columna del Gráfico Pareto -->
-            <div class="lg:col-span-1">
-                <aside class="bg-white p-6 rounded-lg shadow-md sticky top-8">
-                    <h2 class="text-2xl font-semibold text-brand-red mb-4 text-center">Gráfico de Pareto de Costos</h2>
-                    <canvas id="paretoChart"></canvas>
-                </aside>
+        </section>
+        
+        <!-- Sección Central del Gráfico Pareto -->
+        <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-semibold text-brand-red">Gráfico de Pareto de Costos</h2>
+                <button id="expandChartBtn" class="bg-brand-red text-white px-4 py-2 rounded-lg hover:bg-brand-red-dark transition-colors">Ampliar Gráfico</button>
             </div>
-        </div>
-
-        <!-- Sección de Tabla de Datos Originales -->
-        <section class="bg-white p-6 rounded-lg shadow-md mt-8">
-            <h2 class="text-2xl font-semibold text-brand-red mb-4">Detalle de Costos Gestión 2024-2025</h2>
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white">
-                     <thead class="bg-brand-red text-white">
-                        <tr>
-                            <th class="py-3 px-4 text-left">Categoría</th>
-                            <th class="py-3 px-4 text-left">Cuenta</th>
-                            <th class="py-3 px-4 text-right">Promedio (Bs)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="original-data-table" class="divide-y divide-red-200">
-                       <!-- Las filas se insertarán aquí dinámicamente -->
-                    </tbody>
-                    <tfoot class="bg-red-200 font-bold">
-                        <tr>
-                            <td colspan="2" class="py-3 px-4 text-left">TOTAL GENERAL</td>
-                            <td class="py-3 px-4 text-right">788,429</td>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="h-96">
+                 <canvas id="paretoChart"></canvas>
             </div>
         </section>
 
+        <!-- Sección de Tablas -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Columna de Proyecciones -->
+            <section class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos 2025-2026</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-brand-red text-white">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Cuenta</th>
+                                <th class="py-3 px-4 text-right">Proyectado (Bs)</th>
+                                <th class="py-3 px-4 text-right">Variación (Bs)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projection-table" class="divide-y divide-red-200"></tbody>
+                         <tfoot class="bg-red-200 font-bold">
+                            <tr>
+                                <td class="py-3 px-4 text-left">TOTAL PROYECTADO</td>
+                                <td id="total-proyectado" class="py-3 px-4 text-right"></td>
+                                <td id="total-variacion" class="py-3 px-4 text-right"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Columna de Datos Originales -->
+            <section class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold text-brand-red mb-4">Detalle de Costos 2024-2025</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white">
+                         <thead class="bg-brand-red text-white">
+                            <tr>
+                                <th class="py-3 px-4 text-left">Categoría</th>
+                                <th class="py-3 px-4 text-left">Cuenta</th>
+                                <th class="py-3 px-4 text-right">Promedio (Bs)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="original-data-table" class="divide-y divide-red-200"></tbody>
+                        <tfoot class="bg-red-200 font-bold">
+                            <tr>
+                                <td colspan="2" class="py-3 px-4 text-left">TOTAL GENERAL</td>
+                                <td class="py-3 px-4 text-right">788,429</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+        </div>
     </div>
+
+    <!-- Modal para el Gráfico Ampliado -->
+    <div id="chartModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+        <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-6xl h-full max-h-[90vh] relative flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                 <h3 class="text-2xl font-semibold text-brand-red">Gráfico de Pareto de Costos (Ampliado)</h3>
+                 <button id="closeModalBtn" class="text-gray-600 hover:text-gray-900 text-3xl font-bold">&times;</button>
+            </div>
+            <div class="flex-grow h-full">
+                <canvas id="modalParetoChart"></canvas>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         const costData = [
@@ -138,89 +147,87 @@
             { category: 'costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 8841, premise: 0.08 },
         ];
 
-        // Función para formatear números como moneda
-        const formatCurrency = (value) => new Intl.NumberFormat('es-BO', { style: 'currency', currency: 'BOB' }).format(value);
+        // --- Llenado de Tablas ---
+        (function populateTables() {
+            const originalTableBody = document.getElementById('original-data-table');
+            const projectionTableBody = document.getElementById('projection-table');
+            let currentCategory = '';
+            let totalProjected = 0;
+            let totalVariation = 0;
 
-        // --- Llenar Tabla de Datos Originales ---
-        const originalTableBody = document.getElementById('original-data-table');
-        let currentCategory = '';
-        costData.forEach(item => {
-            if (item.category !== currentCategory) {
-                currentCategory = item.category;
-                const categoryRow = document.createElement('tr');
-                categoryRow.innerHTML = `<td colspan="3" class="py-2 px-4 bg-red-100 font-bold text-brand-red">${currentCategory}</td>`;
-                originalTableBody.appendChild(categoryRow);
-            }
-            const row = document.createElement('tr');
-            row.className = 'hover:bg-red-50';
-            row.innerHTML = `
-                <td class="py-2 px-4"></td>
-                <td class="py-2 px-4">${item.account}</td>
-                <td class="py-2 px-4 text-right">${item.value.toLocaleString('es-BO')}</td>
-            `;
-            originalTableBody.appendChild(row);
-        });
+            costData.forEach(item => {
+                // Tabla de datos originales
+                if (item.category !== currentCategory) {
+                    currentCategory = item.category;
+                    const categoryRow = document.createElement('tr');
+                    categoryRow.innerHTML = `<td colspan="3" class="py-2 px-4 bg-red-100 font-bold text-brand-red">${currentCategory}</td>`;
+                    originalTableBody.appendChild(categoryRow);
+                }
+                const originalRow = document.createElement('tr');
+                originalRow.className = 'hover:bg-red-50';
+                originalRow.innerHTML = `
+                    <td class="py-2 px-4"></td>
+                    <td class="py-2 px-4">${item.account}</td>
+                    <td class="py-2 px-4 text-right">${item.value.toLocaleString('es-BO')}</td>
+                `;
+                originalTableBody.appendChild(originalRow);
 
+                // Tabla de proyecciones
+                let projectedCost = item.value;
+                if (item.premise !== null && item.premise !== undefined) {
+                    projectedCost = item.value * (1 + item.premise);
+                } else if (item.fixed_change !== null && item.fixed_change !== undefined) {
+                    projectedCost = item.fixed_change;
+                }
+                
+                const variation = projectedCost - item.value;
+                totalProjected += projectedCost;
+                totalVariation += variation;
 
-        // --- Llenar Tabla de Proyecciones ---
-        const projectionTableBody = document.getElementById('projection-table');
-        let totalProjected = 0;
-        let totalVariation = 0;
-        const originalTotal = costData.reduce((sum, item) => sum + item.value, 0);
-
-        costData.forEach(item => {
-            let projectedCost = item.value;
-            if (item.premise !== null && item.premise !== undefined) {
-                projectedCost = item.value * (1 + item.premise);
-            } else if (item.fixed_change !== null && item.fixed_change !== undefined) {
-                projectedCost = item.fixed_change;
-            }
+                const projectionRow = document.createElement('tr');
+                projectionRow.className = 'hover:bg-red-50';
+                projectionRow.innerHTML = `
+                    <td class="py-2 px-4">${item.account}</td>
+                    <td class="py-2 px-4 text-right">${projectedCost.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                    <td class="py-2 px-4 text-right ${variation >= 0 ? 'text-green-600' : 'text-red-600'}">${variation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                `;
+                projectionTableBody.appendChild(projectionRow);
+            });
             
-            const variation = projectedCost - item.value;
-            totalProjected += projectedCost;
-            totalVariation += variation;
-
-            const row = document.createElement('tr');
-            row.className = 'hover:bg-red-50';
-            row.innerHTML = `
-                <td class="py-2 px-4">${item.account}</td>
-                <td class="py-2 px-4 text-right">${projectedCost.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td class="py-2 px-4 text-right ${variation >= 0 ? 'text-green-600' : 'text-red-600'}">${variation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-            `;
-            projectionTableBody.appendChild(row);
-        });
-        
-        document.getElementById('total-proyectado').textContent = totalProjected.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        document.getElementById('total-variacion').textContent = totalVariation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('total-proyectado').textContent = totalProjected.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('total-variacion').textContent = totalVariation.toLocaleString('es-BO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        })();
 
 
-        // --- Configuración del Gráfico de Pareto ---
-        const sortedData = [...costData].sort((a, b) => b.value - a.value);
-        const labels = sortedData.map(item => item.account);
-        const dataValues = sortedData.map(item => item.value);
-        const totalCost = dataValues.reduce((sum, value) => sum + value, 0);
+        // --- Lógica del Gráfico de Pareto ---
+        let modalChart = null; // Variable para la instancia del gráfico modal
 
-        let cumulativePercentage = 0;
-        const paretoData = dataValues.map(value => {
-            cumulativePercentage += (value / totalCost) * 100;
-            return cumulativePercentage;
-        });
+        function createParetoChart(canvasId, isModal = false) {
+            const sortedData = [...costData].sort((a, b) => b.value - a.value);
+            const labels = sortedData.map(item => item.account);
+            const dataValues = sortedData.map(item => item.value);
+            const totalCost = dataValues.reduce((sum, value) => sum + value, 0);
 
-        const ctx = document.getElementById('paretoChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
+            let cumulativePercentage = 0;
+            const paretoData = dataValues.map(value => {
+                cumulativePercentage += (value / totalCost) * 100;
+                return cumulativePercentage;
+            });
+
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            const chartConfig = {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
                         label: 'Costo (Bs)',
                         data: dataValues,
                         backgroundColor: 'rgba(153, 27, 27, 0.6)',
                         borderColor: 'rgba(153, 27, 27, 1)',
                         borderWidth: 1,
                         yAxisID: 'y',
-                    },
-                    {
+                    }, {
                         label: 'Porcentaje Acumulado',
                         data: paretoData,
                         type: 'line',
@@ -229,65 +236,61 @@
                         fill: false,
                         yAxisID: 'y1',
                         tension: 0.1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                scales: {
-                    x: {
-                        ticks: {
-                            autoSkip: false,
-                            maxRotation: 90,
-                            minRotation: 90,
-                            font: {
-                                size: 10
-                            }
-                        }
-                    },
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        title: {
-                            display: true,
-                            text: 'Costo (Bs)'
-                        }
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        min: 0,
-                        max: 100,
-                        title: {
-                            display: true,
-                            text: 'Porcentaje Acumulado (%)'
-                        },
-                        grid: {
-                            drawOnChartArea: false, // only want the grid lines for one axis to show up
-                        },
-                    }
+                    }]
                 },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } },
+                        y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Costo (Bs)' } },
+                        y1: { type: 'linear', display: true, position: 'right', min: 0, max: 100, title: { display: true, text: 'Porcentaje Acumulado (%)' }, grid: { drawOnChartArea: false } }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) { label += ': '; }
+                                    if (context.dataset.yAxisID === 'y1') {
+                                        label += context.parsed.y.toFixed(2) + '%';
+                                    } else {
+                                         label += context.parsed.y.toLocaleString('es-BO');
+                                    }
+                                    return label;
                                 }
-                                if (context.dataset.yAxisID === 'y1') {
-                                    label += context.parsed.y.toFixed(2) + '%';
-                                } else {
-                                     label += context.parsed.y.toLocaleString('es-BO');
-                                }
-                                return label;
                             }
                         }
                     }
                 }
+            };
+            return new Chart(ctx, chartConfig);
+        }
+
+        // Crear el gráfico inicial
+        let mainChart = createParetoChart('paretoChart');
+
+        // --- Lógica del Modal ---
+        const modal = document.getElementById('chartModal');
+        const openBtn = document.getElementById('expandChartBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        openBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            if (!modalChart) { // Crear el gráfico modal solo la primera vez
+                modalChart = createParetoChart('modalParetoChart', true);
+            }
+        });
+
+        const closeModal = () => {
+            modal.style.display = 'none';
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (event) => {
+            // Cerrar si se hace clic en el fondo oscuro
+            if (event.target === modal) {
+                closeModal();
             }
         });
 
