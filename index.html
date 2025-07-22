@@ -57,7 +57,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Columna de Proyecciones -->
             <section class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos 2025-2026 (Ordenado por Variación)</h2>
+                <h2 class="text-2xl font-semibold text-brand-red mb-4">Proyección de Costos 2025-2026 (Ordenado por Variación %)</h2>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white">
                         <thead class="bg-brand-red text-white">
@@ -190,8 +190,8 @@
                 });
             });
 
-            // Ordenar los datos de proyección por variación descendente
-            projectionData.sort((a, b) => b.variation - a.variation);
+            // Ordenar los datos de proyección por variación porcentual descendente
+            projectionData.sort((a, b) => b.percentageVariation - a.percentageVariation);
 
             // Poblar la tabla de proyección con los datos ordenados
             projectionData.forEach(data => {
