@@ -41,12 +41,18 @@
                 <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                 <span class="text-2xl font-extrabold">Dashboard</span>
             </a>
-            <nav>
+            <nav id="department-nav">
                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="cbba">
                    Cochabamba
                 </a>
                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="scz">
                    Santa Cruz
+                </a>
+                <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="sucre">
+                   Sucre
+                </a>
+                <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="trinidad">
+                   Trinidad
                 </a>
                 <!-- Add new departments here -->
             </nav>
@@ -77,125 +83,102 @@
     <script>
         const departmentData = {
             cbba: {
-                name: "Cochabamba Almacenaje",
-                theme: {
-                    main: 'blue',
-                    text: 'text-blue-800',
-                    kpiBg: 'bg-blue-100',
-                    kpiBorder: 'border-l-blue-700',
-                    kpiPastBorder: 'border-l-blue-400',
-                    kpiProposedBg: 'bg-blue-200',
-                    kpiProposedBorder: 'border-l-blue-800',
-                    chartBg: 'rgba(59, 130, 246, 0.6)',
-                    chartBorder: 'rgba(37, 99, 235, 1)'
-                },
-                kpis: {
-                    past: [
-                        { year: 'G.22-23', value: '0.45', obj: '0.46' },
-                        { year: 'G.23-24', value: '0.40', obj: '0.45' },
+                almacenaje: {
+                    name: "Cochabamba Almacenaje",
+                    theme: { main: 'blue', text: 'text-blue-800', kpiBg: 'bg-blue-100', kpiBorder: 'border-l-blue-700', kpiPastBorder: 'border-l-blue-400', kpiProposedBg: 'bg-blue-200', kpiProposedBorder: 'border-l-blue-800', chartBg: 'rgba(59, 130, 246, 0.6)', chartBorder: 'rgba(37, 99, 235, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.45', obj: '0.46', met: true }, { year: 'G.23-24', value: '0.40', obj: '0.45', met: true }], current: { year: '(G.24-25)', value: '0.43', obj: '0.43', met: true }, proposed: { year: 'G.2025-2026', value: '0.71' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 191071, projected_value: 217821 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 144213, projected_value: 164403 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 17279, projected_value: 19871 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 18920, projected_value: 21190 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 12804, projected_value: 17925 }, { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 6395, projected_value: 6715 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 63061, projected_value: 416511 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 16385, projected_value: 16385 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2253, projected_value: 5315 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 3557, projected_value: 7113 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 2160, projected_value: 2160 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 8368, projected_value: 9204 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 22360, projected_value: 41105 }, { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 638, projected_value: 638 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 3130, projected_value: 3130 }, { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 8877, projected_value: 11540 }, { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 40938, projected_value: 109741 }, { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 22321, projected_value: 35714 }, { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 11519, projected_value: 14975 }, { category: 'Costos variables', account: 'Baja De Productos', value: 7105, projected_value: 7105 }, { category: 'Costos variables', account: 'Envases', value: 9868, projected_value: 11842 }, { category: 'Costos variables', account: 'Consumo De Hielo', value: 276, projected_value: 276 }, { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 58998, projected_value: 66078 }, { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 38427, projected_value: 46113 }, { category: 'Costos variables', account: 'Mantenimiento Interno', value: 8632, projected_value: 48632 }, { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 32521, projected_value: 37073 }, { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 17809, projected_value: 19946 },
                     ],
-                    current: { year: '(G.24-25)', value: '0.43', obj: '0.43' },
-                    proposed: { year: 'G.2025-2026', value: '0.71' }
+                    premises: [ '<strong>Depreciación del CD-ESMERALDA:</strong> 353,450.', '<strong>Energía Eléctrica y Agua:</strong> Incremento por el Nuevo CD-ESMERALDA.', '<strong>Mantenimiento Interno:</strong> Incorporación de 5 nuevos técnicos.', '<strong>Sueldos y Jornales:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383 (5% al haber básico y 10% al salario mínimo nacional). Además de la contratación de 4 ayudantes de almacén por productividad.', '<strong>Gastos Generales:</strong> El traslado al NCD implica un incremento por: <ul class="list-disc list-inside ml-4"><li>La contratación de tres guardias adicionales (dos para el turno de día y uno para el de noche). De este monto, el 60% asume DP.</li><li>Servicios de control de plagas y fumigación (5,730).</li></ul>' ]
                 },
-                costs: [
-                    { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 191071, projected_value: 217821 },
-                    { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 144213, projected_value: 164403 },
-                    { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 17279, projected_value: 19871 },
-                    { category: 'MANO DE OBRA', account: 'Horas Extras', value: 18920, projected_value: 21190 },
-                    { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 12804, projected_value: 17925 },
-                    { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 6395, projected_value: 6715 },
-                    { category: 'Costos Fijos', account: 'Depreciacion', value: 63061, projected_value: 416511 },
-                    { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 16385, projected_value: 16385 },
-                    { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2253, projected_value: 5315 },
-                    { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 3557, projected_value: 7113 },
-                    { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 2160, projected_value: 2160 },
-                    { category: 'Costos Fijos', account: 'Servicios Externos', value: 8368, projected_value: 9204 },
-                    { category: 'Costos Fijos', account: 'Gastos Generales', value: 22360, projected_value: 41105 },
-                    { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 638, projected_value: 638 },
-                    { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 3130, projected_value: 3130 },
-                    { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 8877, projected_value: 11540 },
-                    { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 40938, projected_value: 109741 },
-                    { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 22321, projected_value: 35714 },
-                    { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 11519, projected_value: 14975 },
-                    { category: 'Costos variables', account: 'Baja De Productos', value: 7105, projected_value: 7105 },
-                    { category: 'Costos variables', account: 'Envases', value: 9868, projected_value: 11842 },
-                    { category: 'Costos variables', account: 'Consumo De Hielo', value: 276, projected_value: 276 },
-                    { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 58998, projected_value: 66078 },
-                    { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 38427, projected_value: 46113 },
-                    { category: 'Costos variables', account: 'Mantenimiento Interno', value: 8632, projected_value: 48632 },
-                    { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 32521, projected_value: 37073 },
-                    { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 17809, projected_value: 19946 },
-                ],
-                premises: [
-                    '<strong>Depreciacion del CD-ESMERALDA:</strong> 353.450',
-                    '<strong>Mantenimiento Interno:</strong> Incorporación de 5 nuevos técnicos.',
-                    '<strong>Energia electrica y Agua:</strong> Incremento por el Nuevo CD-ESMERALDA.',
-                    '<strong>Conectividad y comunicaciones:</strong> Las nuevas conexiones de red en el NCD (Enlace de datos). Las actuales se reducen a la mitad.'
-                ]
+                transporte: {
+                    name: "Cochabamba Transporte",
+                    theme: { main: 'blue', text: 'text-blue-800', kpiBg: 'bg-blue-100', kpiBorder: 'border-l-blue-700', kpiPastBorder: 'border-l-blue-400', kpiProposedBg: 'bg-blue-200', kpiProposedBorder: 'border-l-blue-800', chartBg: 'rgba(59, 130, 246, 0.6)', chartBorder: 'rgba(37, 99, 235, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.47', obj: '0.50', met: true }, { year: 'G.23-24', value: '0.48', obj: '0.47', met: false }], current: { year: '(G.24-25)', value: '0.48', obj: '0.46', met: false }, proposed: { year: 'G.2025-2026', value: '0.51' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 153157, projected_value: 171536 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 117146, projected_value: 131204 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 11431, projected_value: 13718 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 17065, projected_value: 19113 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 7112, projected_value: 9956 }, { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 4129, projected_value: 4536 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 15765, projected_value: 19939 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 8904, projected_value: 8904 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2254, projected_value: 4654 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 600, projected_value: 600 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 11560, projected_value: 12670 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 4399, projected_value: 4839 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 7085, projected_value: 11285 }, { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 292087, projected_value: 350504 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 15376, projected_value: 19220 }, { category: 'costos variables', account: 'Material Y Prod.Limpieza', value: 1883, projected_value: 2448 }, { category: 'costos variables', account: 'Energia Electrica Y Agua', value: 4736, projected_value: 8998 }, { category: 'costos variables', account: 'Mantenimiento Y Repuestos', value: 367, projected_value: 478 }, { category: 'costos variables', account: 'Materiales Escritorio Y Suministros', value: 8411, projected_value: 10935 }, { category: 'costos variables', account: 'Baja De Productos', value: 397, projected_value: 397 }, { category: 'costos variables', account: 'Costo de Servicios Internos', value: 68685, projected_value: 76927 }, { category: 'costos variables', account: 'Costo de servicio de areas de soporte', value: 9815, projected_value: 11778 }, { category: 'costos variables', account: 'Mantenimiento Interno', value: 22, projected_value: 25 }, { category: 'costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 11810, projected_value: 13228 }, { category: 'costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 8848, projected_value: 9910 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Sueldos y Jornales, Beneficios Sociales y Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Energía Eléctrica y Agua:</strong> Incremento por la apertura de NCD-ESMERALDA.', '<strong>Gastos Generales:</strong> Por el cambio al CD-ESMERALDA, la cuenta tendrá un incremento debido a la necesidad de aumentar el personal para reforzar la seguridad. De este incremento, Transporte asumirá un 35%.' ]
+                }
             },
             scz: {
-                name: "Santa Cruz Almacenaje",
-                theme: {
-                    main: 'green',
-                    text: 'text-green-800',
-                    kpiBg: 'bg-green-100',
-                    kpiBorder: 'border-l-green-700',
-                    kpiPastBorder: 'border-l-green-400',
-                    kpiProposedBg: 'bg-green-200',
-                    kpiProposedBorder: 'border-l-green-800',
-                    chartBg: 'rgba(22, 163, 74, 0.6)',
-                    chartBorder: 'rgba(21, 128, 61, 1)'
-                },
-                kpis: {
-                    past: [
-                        { year: 'G.22-23', value: '0.47', obj: '0.50' },
-                        { year: 'G.23-24', value: '0.45', obj: '0.48' },
+                almacenaje: {
+                    name: "Santa Cruz Almacenaje",
+                    theme: { main: 'green', text: 'text-green-800', kpiBg: 'bg-green-100', kpiBorder: 'border-l-green-700', kpiPastBorder: 'border-l-green-400', kpiProposedBg: 'bg-green-200', kpiProposedBorder: 'border-l-green-800', chartBg: 'rgba(22, 163, 74, 0.6)', chartBorder: 'rgba(21, 128, 61, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.47', obj: '0.50', met: true }, { year: 'G.23-24', value: '0.45', obj: '0.48', met: true }], current: { year: '(G.24-25)', value: '0.39', obj: '0.41', met: true }, proposed: { year: 'G.2025-2026', value: '0.45' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 529123, projected_value: 592617 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 391231, projected_value: 438179 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 50062, projected_value: 57572 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 87166, projected_value: 97626 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 35595, projected_value: 47847 }, { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 8831, projected_value: 9138 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 665180, projected_value: 704180 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 47812, projected_value: 47812 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2958, projected_value: 3106 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 14484, projected_value: 14484 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 1528, projected_value: 1528 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 71571, projected_value: 137303 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 35756, projected_value: 41120 }, { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 902, projected_value: 902 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 473, projected_value: 473 }, { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 14769, projected_value: 19200 }, { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 280000, projected_value: 280000 }, { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 44251, projected_value: 57526 }, { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 20512, projected_value: 26666 }, { category: 'Costos variables', account: 'Envases', value: 71002, projected_value: 85202 }, { category: 'Costos variables', account: 'Baja De Productos', value: 2956, projected_value: 2956 }, { category: 'Costos variables', account: 'Productos Quimicos', value: 3646, projected_value: 3646 }, { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 161827, projected_value: 181246 }, { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 60623, projected_value: 67898 }, { category: 'Costos variables', account: 'Mantenimiento Interno', value: 192644, projected_value: 215762 }, { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 79022, projected_value: 88505 }, { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 36659, projected_value: 36659 },
                     ],
-                    current: { year: '(G.24-25)', value: '0.39', obj: '0.41' },
-                    proposed: { year: 'G.2025-2026', value: '0.45' }
+                    premises: [ '<strong>Servicios Externos:</strong> Se estimó un 10% por inflación; además, se incorporan dos servicios adicionales: lavado de rack del nuevo almacén de secos y lavado de antecámara.', '<strong>Sueldos y Jornales, Beneficios Sociales:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Depreciación:</strong> Incremento por la ampliación del almacén de secos (39,000 Bs aprox).' ]
                 },
-                costs: [
-                    { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 529123, projected_value: 592617 },
-                    { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 391231, projected_value: 438179 },
-                    { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 50062, projected_value: 100241 },
-                    { category: 'MANO DE OBRA', account: 'Horas Extras', value: 87166, projected_value: 38277 },
-                    { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 35595, projected_value: 47847 },
-                    { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 8831, projected_value: 9138 },
-                    { category: 'Costos Fijos', account: 'Depreciacion', value: 665180, projected_value: 704180 },
-                    { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 47812, projected_value: 47812 },
-                    { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2958, projected_value: 3106 },
-                    { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 14484, projected_value: 14484 },
-                    { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 1528, projected_value: 1528 },
-                    { category: 'Costos Fijos', account: 'Servicios Externos', value: 71571, projected_value: 137303 },
-                    { category: 'Costos Fijos', account: 'Gastos Generales', value: 35756, projected_value: 41120 },
-                    { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 902, projected_value: 902 },
-                    { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 473, projected_value: 473 },
-                    { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 14769, projected_value: 19200 },
-                    { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 280000, projected_value: 280000 },
-                    { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 44251, projected_value: 57526 },
-                    { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 20512, projected_value: 26666 },
-                    { category: 'Costos variables', account: 'Envases', value: 71002, projected_value: 85202 },
-                    { category: 'Costos variables', account: 'Baja De Productos', value: 2956, projected_value: 2956 },
-                    { category: 'Costos variables', account: 'Productos Quimicos', value: 3646, projected_value: 3646 },
-                    { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 161827, projected_value: 181246 },
-                    { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 60623, projected_value: 67898 },
-                    { category: 'Costos variables', account: 'Mantenimiento Interno', value: 192644, projected_value: 215762 },
-                    { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 79022, projected_value: 88505 },
-                    { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 36659, projected_value: 36659 },
-                ],
-                premises: [
-                    'Premisas para Santa Cruz (ejemplo).',
-                    'Ajuste en costos de logística por nuevas rutas.',
-                    'Inversión en tecnología de almacenamiento en frío.',
-                ]
+                transporte: {
+                    name: "Santa Cruz Transporte",
+                    theme: { main: 'green', text: 'text-green-800', kpiBg: 'bg-green-100', kpiBorder: 'border-l-green-700', kpiPastBorder: 'border-l-green-400', kpiProposedBg: 'bg-green-200', kpiProposedBorder: 'border-l-green-800', chartBg: 'rgba(22, 163, 74, 0.6)', chartBorder: 'rgba(21, 128, 61, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.47', obj: '0.50', met: true }, { year: 'G.23-24', value: '0.45', obj: '0.48', met: true }], current: { year: '(G.24-25)', value: '0.40', obj: '0.45', met: true }, proposed: { year: 'G.2025-2026', value: '0.44' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 397003, projected_value: 444644 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 322804, projected_value: 361541 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 46292, projected_value: 53236 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 152269, projected_value: 170541 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 50200, projected_value: 70280 }, { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 6330, projected_value: 6646 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 47244, projected_value: 47244 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 31834, projected_value: 31834 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 3261, projected_value: 3424 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 14250, projected_value: 14250 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 19401, projected_value: 22937 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 131981, projected_value: 145179 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 16305, projected_value: 17120 }, { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 1064322, projected_value: 1277186 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 7, projected_value: 7 }, { category: 'costos variables', account: 'Material Y Prod.Limpieza', value: 4045, projected_value: 5258 }, { category: 'costos variables', account: 'Energia Electrica Y Agua', value: 9810, projected_value: 9810 }, { category: 'costos variables', account: 'Mantenimiento Y Repuestos', value: 871, projected_value: 1132 }, { category: 'costos variables', account: 'Materiales Escritorio Y Suministros', value: 6642, projected_value: 8635 }, { category: 'costos variables', account: 'Baja De Productos', value: 488, projected_value: 488 }, { category: 'costos variables', account: 'Envases', value: 516, projected_value: 516 }, { category: 'costos variables', account: 'Productos Quimicos', value: 54, projected_value: 58 }, { category: 'costos variables', account: 'Costo de Servicios Internos', value: 183561, projected_value: 205588 }, { category: 'costos variables', account: 'Costo de servicio de areas de soporte', value: 21229, projected_value: 23776 }, { category: 'costos variables', account: 'Mantenimiento Interno', value: 1100, projected_value: 1232 }, { category: 'costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 35693, projected_value: 39976 }, { category: 'costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 10862, projected_value: 12165 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Ropa de Trabajo:</strong> Se estimó un incremento del 40% debido al impacto de la inflación.' ]
+                }
+            },
+            sucre: {
+                almacenaje: {
+                    name: "Sucre Almacenaje",
+                    theme: { main: 'red', text: 'text-red-800', kpiBg: 'bg-red-100', kpiBorder: 'border-l-red-700', kpiPastBorder: 'border-l-red-400', kpiProposedBg: 'bg-red-200', kpiProposedBorder: 'border-l-red-800', chartBg: 'rgba(220, 38, 38, 0.6)', chartBorder: 'rgba(185, 28, 28, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.45', obj: '0.47', met: true }, { year: 'G.23-24', value: '0.38', obj: '0.47', met: true }], current: { year: '(G.24-25)', value: '0.73', obj: '0.46', met: false }, proposed: { year: 'G.2025-2026', value: '0.98' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 16325, projected_value: 18284 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 13527, projected_value: 15150 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 2405, projected_value: 2765 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 2026, projected_value: 2269 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 4128, projected_value: 5779 }, { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 415, projected_value: 436 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 11028, projected_value: 15547 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 2118, projected_value: 2118 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 5898, projected_value: 6193 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 200, projected_value: 200 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 1137, projected_value: 488 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 5202, projected_value: 5722 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 26643, projected_value: 27975 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 2188, projected_value: 2188 }, { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 1291, projected_value: 1679 }, { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 30861, projected_value: 41654 }, { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 4327, projected_value: 5625 }, { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 1267, projected_value: 1647 }, { category: 'Costos variables', account: 'Envases', value: 1664, projected_value: 1997 }, { category: 'Costos variables', account: 'Baja De Productos', value: 29, projected_value: 29 }, { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 29880, projected_value: 33466 }, { category: 'Costos variables', account: 'Mantenimiento Interno', value: 2328, projected_value: 2607 }, { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 5060, projected_value: 5667 },
+                    ],
+                    premises: [ '<strong>Energía Eléctrica y Agua:</strong> Con el funcionamiento de 12 contenedores (3 nuevos), proyectamos un aumento del 33,33% en consumo eléctrico, considerando un consumo promedio de Bs 3,598 por contenedor y tarifa de Bs 2,10 por kWh.', '<strong>Depreciación:</strong> La transferencia de activos de 3 contenedores de la ciudad de CBBA, incrementará la depreciación mensual en 1,506 Bs por contenedor.', '<strong>Sueldos y Jornales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.' ]
+                },
+                transporte: {
+                    name: "Sucre Transporte",
+                    theme: { main: 'red', text: 'text-red-800', kpiBg: 'bg-red-100', kpiBorder: 'border-l-red-700', kpiPastBorder: 'border-l-red-400', kpiProposedBg: 'bg-red-200', kpiProposedBorder: 'border-l-red-800', chartBg: 'rgba(220, 38, 38, 0.6)', chartBorder: 'rgba(185, 28, 28, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.15', obj: '0.17', met: true }, { year: 'G.23-24', value: '0.21', obj: '0.17', met: false }], current: { year: '(G.24-25)', value: '0.30', obj: '0.21', met: false }, proposed: { year: 'G.2025-2026', value: '0.35' } },
+                    costs: [
+                        { account: 'Depreciacion', value: 135, projected_value: 135 }, { account: 'Desgaste de Canastilla', value: 1796, projected_value: 1796 }, { account: 'Sistemas tecnologicos', value: 763, projected_value: 763 }, { account: 'Servicios Externos', value: 403, projected_value: 443 }, { account: 'Gastos Generales', value: 1615, projected_value: 1696 }, { account: 'Seguros Gral, Fletes De Producto', value: 27368, projected_value: 32841 }, { account: 'Costo de Servicios Internos', value: 13540, projected_value: 15165 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 1217, projected_value: 1363 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.' ]
+                }
+            },
+            trinidad: {
+                almacenaje: {
+                    name: "Trinidad Almacenaje",
+                    theme: { main: 'emerald', text: 'text-emerald-800', kpiBg: 'bg-emerald-100', kpiBorder: 'border-l-emerald-700', kpiPastBorder: 'border-l-emerald-400', kpiProposedBg: 'bg-emerald-200', kpiProposedBorder: 'border-l-emerald-800', chartBg: 'rgba(16, 185, 129, 0.6)', chartBorder: 'rgba(6, 95, 70, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '1.30', obj: '1.26', met: false }, { year: 'G.23-24', value: '1.20', obj: '1.26', met: true }], current: { year: '(G.24-25)', value: '0.24', obj: '1.27', met: true }, proposed: { year: 'G.2025-2026', value: '1.04' } },
+                    costs: [
+                        { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 15841, projected_value: 17742 }, { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 11815, projected_value: 13233 }, { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 397, projected_value: 457 }, { category: 'MANO DE OBRA', account: 'Horas Extras', value: 1604, projected_value: 1796 }, { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 1611, projected_value: 2255 }, { category: 'Costos Fijos', account: 'Depreciacion', value: 16054, projected_value: 16054 }, { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 3430, projected_value: 3430 }, { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 9348, projected_value: 9815 }, { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 178, projected_value: 178 }, { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 1137, projected_value: 488 }, { category: 'Costos Fijos', account: 'Servicios Externos', value: 1922, projected_value: 2114 }, { category: 'Costos Fijos', account: 'Gastos Generales', value: 3941, projected_value: 4138 }, { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 1690, projected_value: 1690 }, { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 1812, projected_value: 2355 }, { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 36836, projected_value: 36836 }, { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 3883, projected_value: 5048 }, { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 2523, projected_value: 3280 }, { category: 'Costos variables', account: 'Envases', value: 2381, projected_value: 2858 }, { category: 'Costos variables', account: 'Baja De Productos', value: 152, projected_value: 152 }, { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 25051, projected_value: 28058 }, { category: 'Costos variables', account: 'Mantenimiento Interno', value: 1730, projected_value: 1938 }, { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 7056, projected_value: 7902 },
+                    ],
+                    premises: [ '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Mantenimiento y Repuestos:</strong> Se estimó un incremento del 30% debido al impacto de la inflación.' ]
+                },
+                transporte: {
+                    name: "Trinidad Transporte",
+                    theme: { main: 'emerald', text: 'text-emerald-800', kpiBg: 'bg-emerald-100', kpiBorder: 'border-l-emerald-700', kpiPastBorder: 'border-l-emerald-400', kpiProposedBg: 'bg-emerald-200', kpiProposedBorder: 'border-l-emerald-800', chartBg: 'rgba(16, 185, 129, 0.6)', chartBorder: 'rgba(6, 95, 70, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.51', obj: '0.56', met: true }, { year: 'G.23-24', value: '0.48', obj: '0.56', met: true }], current: { year: '(G.24-25)', value: '0.43', obj: '0.49', met: true }, proposed: { year: 'G.2025-2026', value: '0.43' } },
+                    costs: [
+                        { account: 'Sueldos Y Jornales', value: 168, projected_value: 168 }, { account: 'Ropa De Trabajo', value: 541, projected_value: 541 }, { account: 'Depreciacion', value: 12, projected_value: 12 }, { account: 'Desgaste de Canastilla', value: 2618, projected_value: 2618 }, { account: 'Sistemas tecnologicos', value: 223, projected_value: 223 }, { account: 'Servicios Externos', value: 528, projected_value: 581 }, { account: 'Gastos Generales', value: 2311, projected_value: 2426 }, { account: 'Seguros Gral, Fletes De Producto', value: 23718, projected_value: 28462 }, { account: 'Material Y Prod.Limpieza', value: 25, projected_value: 33 }, { account: 'Mantenimiento Y Repuestos', value: 8239, projected_value: 8239 }, { account: 'Materiales Escritorio Y Suministros', value: 97, projected_value: 126 }, { account: 'Envases', value: 455, projected_value: 455 }, { account: 'Costo de Servicios Internos', value: 23933, projected_value: 26805 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 1227, projected_value: 1375 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.' ]
+                }
             }
         };
 
         let modalChartInstance = null;
         let activeCharts = [];
+        let activeDept = 'cbba';
+        let activeArea = 'almacenaje';
 
-        function renderDepartment(deptKey) {
-            const data = departmentData[deptKey];
+        function renderContent(deptKey, areaKey) {
+            activeDept = deptKey;
+            activeArea = areaKey;
+
+            const data = departmentData[deptKey][areaKey];
+            if (!data) {
+                document.getElementById('content-area').innerHTML = `<div class="text-center p-8"><h2 class="text-2xl font-bold">Datos no disponibles para esta selección.</h2></div>`;
+                return;
+            }
+
             const theme = data.theme;
             const contentArea = document.getElementById('content-area');
             
@@ -203,23 +186,38 @@
             activeCharts.forEach(chart => chart.destroy());
             activeCharts = [];
             
+            const metIcon = `<svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>`;
+            const notMetIcon = `<svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>`;
+
             let pastKpisHtml = data.kpis.past.map(kpi => `
                 <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiPastBorder}">
                     <p class="text-gray-500 text-sm font-medium">${kpi.year}</p>
                     <p class="text-3xl font-bold text-gray-800 my-1">${kpi.value}</p>
-                    <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Cumplido
+                    <p class="text-xs font-semibold flex items-center justify-center ${kpi.met ? 'text-green-600' : 'text-red-600'}">
+                        ${kpi.met ? metIcon : notMetIcon}
+                        ${kpi.met ? 'Cumplido' : 'Incumplido'}
                     </p>
                     <p class="text-xs text-gray-500">Obj: ${kpi.obj}</p>
                 </div>
             `).join('');
 
+            const areaTabs = Object.keys(departmentData[deptKey]).map(area => `
+                <button class="area-tab px-4 py-2 text-sm font-medium rounded-t-lg ${area === areaKey ? `${theme.text} border-b-2 ${theme.kpiBorder}` : 'text-gray-500'}" data-area="${area}">
+                    ${area.charAt(0).toUpperCase() + area.slice(1)}
+                </button>
+            `).join('');
+
             contentArea.innerHTML = `
-                <header class="text-center mb-8">
+                <header class="text-center mb-4">
                     <h1 class="text-3xl sm:text-4xl font-bold ${theme.text}">${data.name}</h1>
                     <p class="text-gray-600 mt-2">G.2024-2025 vs. Proyección G.2025-2026</p>
                 </header>
+
+                <div class="border-b border-gray-200 mb-8">
+                    <nav class="-mb-px flex space-x-6" id="area-nav">
+                        ${areaTabs}
+                    </nav>
+                </div>
 
                 <section class="mb-12">
                     <h2 class="text-2xl font-semibold ${theme.text} mb-6 text-center">Costo Unitario (BS/KG)</h2>
@@ -228,9 +226,9 @@
                         <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiBorder}">
                             <p class="text-gray-600 text-sm font-medium">${data.kpis.current.year}</p>
                             <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.current.value}</p>
-                            <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
-                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                                Cumplido
+                            <p class="text-xs font-semibold flex items-center justify-center ${data.kpis.current.met ? 'text-green-600' : 'text-red-600'}">
+                                ${data.kpis.current.met ? metIcon : notMetIcon}
+                                ${data.kpis.current.met ? 'Cumplido' : 'Incumplido'}
                             </p>
                             <p class="text-xs text-gray-500">Obj: ${data.kpis.current.obj}</p>
                         </div>
@@ -252,7 +250,7 @@
 
                 <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
                     <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-                        <div><h2 class="text-2xl font-semibold ${theme.text}">Pareto de Variaciones</h2></div>
+                        <div><h2 class="text-2xl font-semibold ${theme.text}">Pareto de Variación Proyectada G.25-26 (Nominal)</h2></div>
                         <button data-chart-type="variation" class="expandChartBtn bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Ampliar</button>
                     </div>
                     <div class="h-96"><canvas id="variationParetoChart"></canvas></div>
@@ -268,6 +266,7 @@
             activeCharts.push(createVariationParetoChart('variationParetoChart', data.costs, theme));
             
             attachModalListeners(data.costs, theme);
+            attachAreaTabListeners();
         }
         
         function createCostParetoChart(canvasId, costData, theme) {
@@ -286,7 +285,7 @@
         }
 
         function createVariationParetoChart(canvasId, costData, theme) {
-            const variationsData = costData.map(item => ({ account: item.account, nominalVariation: item.projected_value - item.value, percentageVariation: item.value !== 0 ? ((item.projected_value - item.value) / item.value) * 100 : 0 })).filter(item => item.nominalVariation > 0).sort((a, b) => b.percentageVariation - a.percentageVariation);
+            const variationsData = costData.map(item => ({ account: item.account, nominalVariation: item.projected_value - item.value, percentageVariation: item.value > 0 ? ((item.projected_value - item.value) / item.value) * 100 : 0 })).filter(item => item.nominalVariation > 0).sort((a, b) => b.nominalVariation - a.nominalVariation);
             const labels = variationsData.map(item => item.account);
             const nominalValues = variationsData.map(item => item.nominalVariation);
             const percentageValues = variationsData.map(item => item.percentageVariation);
@@ -296,8 +295,8 @@
             const ctx = document.getElementById(canvasId).getContext('2d');
             return new Chart(ctx, {
                 type: 'bar',
-                data: { labels, datasets: [{ label: 'Variación (%)', data: percentageValues, backgroundColor: theme.chartBg, yAxisID: 'y' }, { label: 'Acumulado', data: paretoData, type: 'line', borderColor: theme.chartBorder, yAxisID: 'y1' }] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } }, y: { type: 'linear', position: 'left', title: { display: true, text: 'Variación Individual (%)' }, ticks: { callback: v => v.toFixed(0) + '%' } }, y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado del Impacto Total (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: v => v.toFixed(0) + '%' } } }, plugins: { tooltip: { callbacks: { label: c => c.dataset.yAxisID === 'y1' ? `Acumulado: ${c.parsed.y.toFixed(2)}%` : `Var. %: ${percentageValues[c.dataIndex].toFixed(2)}% (Var. Bs: ${nominalValues[c.dataIndex].toLocaleString('es-BO')})` } } } }
+                data: { labels, datasets: [{ label: 'Variación (Bs)', data: nominalValues, backgroundColor: theme.chartBg, yAxisID: 'y' }, { label: 'Acumulado', data: paretoData, type: 'line', borderColor: theme.chartBorder, yAxisID: 'y1' }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } }, y: { type: 'linear', position: 'left', title: { display: true, text: 'Variación Nominal (Bs)' } }, y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado del Impacto Total (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: v => v.toFixed(0) + '%' } } }, plugins: { tooltip: { callbacks: { label: c => c.dataset.yAxisID === 'y1' ? `Acumulado: ${c.parsed.y.toFixed(2)}%` : `Var. Bs: ${nominalValues[c.dataIndex].toLocaleString('es-BO')} (Var. %: ${percentageValues[c.dataIndex].toFixed(2)}%)` } } } }
             });
         }
 
@@ -315,7 +314,7 @@
                         modalTitle.textContent = 'Pareto de Costos G.2024-2025 (Ampliado)';
                         modalChartInstance = createCostParetoChart('modalChartCanvas', costData, theme);
                     } else if (chartType === 'variation') {
-                        modalTitle.textContent = 'Pareto de Variaciones (Ampliado)';
+                        modalTitle.textContent = 'Pareto de Variación Proyectada G.25-26 (Ampliado)';
                         modalChartInstance = createVariationParetoChart('modalChartCanvas', costData, theme);
                     }
                     modal.style.display = 'flex';
@@ -332,22 +331,30 @@
             sidebar.classList.toggle('-translate-x-full');
         });
 
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
+        document.querySelectorAll('#department-nav .nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('bg-gray-700'));
+                document.querySelectorAll('#department-nav .nav-link').forEach(l => l.classList.remove('bg-gray-700'));
                 e.currentTarget.classList.add('bg-gray-700');
                 const deptKey = e.currentTarget.getAttribute('data-dept');
-                renderDepartment(deptKey);
-                if (window.innerWidth < 768) { // md breakpoint
+                renderContent(deptKey, 'almacenaje'); // Default to 'almacenaje'
+                if (window.innerWidth < 768) {
                     sidebar.classList.add('-translate-x-full');
                 }
             });
         });
 
-        navLinks[0].classList.add('bg-gray-700');
-        renderDepartment('cbba');
+        function attachAreaTabListeners() {
+            document.querySelectorAll('#area-nav .area-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    const areaKey = e.currentTarget.getAttribute('data-area');
+                    renderContent(activeDept, areaKey);
+                });
+            });
+        }
+
+        document.querySelector('#department-nav .nav-link').classList.add('bg-gray-700');
+        renderContent('cbba', 'almacenaje');
 
     </script>
 </body>
