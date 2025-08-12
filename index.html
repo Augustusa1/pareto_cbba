@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Análisis de Costos y Proyección</title>
+    <title>Dashboard de Costos por Departamento</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,122 +13,58 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .bg-brand-red { background-color: #991b1b; }
-        .text-brand-red { color: #991b1b; }
-        .border-brand-red { border-color: #991b1b; }
-        .hover\:bg-brand-red-dark:hover { background-color: #7f1d1d; }
         #chartModal {
             display: none; /* Hidden by default */
         }
-        .kpi-card {
-            background-color: #fef2f2;
-            border-left: 5px solid #b91c1c;
-            transition: all 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .kpi-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        /* Sidebar transition */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="bg-red-50 text-gray-800">
+<body class="bg-gray-100">
 
-    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold text-brand-red">Análisis Comparativo de Costos Almacenaje CBBA</h1>
-            <p class="text-gray-600 mt-2">G.2024-2025 vs. Proyección G.2025-2026</p>
-        </header>
+    <div class="relative min-h-screen md:flex">
+        <!-- Mobile menu button -->
+        <div class="bg-gray-800 text-gray-100 flex justify-between md:hidden">
+            <a href="#" class="block p-4 text-white font-bold">Departamentos</a>
+            <button id="mobile-menu-button" class="p-4 focus:outline-none focus:bg-gray-700">
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
 
-        <!-- Sección de KPIs -->
-        <section class="mb-12">
-             <h2 class="text-2xl font-semibold text-brand-red mb-6 text-center">Costo Unitario (BS/KG)</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- KPIs Pasados -->
-                <div class="kpi-card p-4 rounded-lg shadow-md text-center">
-                    <p class="text-gray-500 text-sm font-medium">G.22-23</p>
-                    <p class="text-3xl font-bold text-gray-800 my-1">0.45</p>
-                    <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Cumplido
-                    </p>
-                    <p class="text-xs text-gray-500">Obj: 0.46</p>
-                </div>
-                 <div class="kpi-card p-4 rounded-lg shadow-md text-center">
-                    <p class="text-gray-500 text-sm font-medium">G.23-24</p>
-                    <p class="text-3xl font-bold text-gray-800 my-1">0.40</p>
-                    <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Cumplido
-                    </p>
-                    <p class="text-xs text-gray-500">Obj: 0.45</p>
-                </div>
-                <!-- KPI Actual -->
-                 <div class="kpi-card p-4 rounded-lg shadow-md text-center">
-                    <p class="text-gray-600 text-sm font-medium">(G.24-25)</p>
-                    <p class="text-3xl font-bold text-gray-800 my-1">0.43</p>
-                    <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-                        Cumplido
-                    </p>
-                    <p class="text-xs text-gray-500">Obj: 0.43</p>
-                </div>
-                <!-- KPI Propuesto -->
-                 <div class="kpi-card p-4 rounded-lg shadow-md text-center bg-green-100 border-l-green-700">
-                    <p class="text-gray-600 text-sm font-medium">OBJETIVO PROPUESTO</p>
-                    <p class="text-3xl font-bold text-green-800 my-1">0.71</p>
-                    <p class="text-xs text-gray-500">G.2025-2026</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Pareto de Costos 24-25 -->
-        <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
-            <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-                <div>
-                    <h2 class="text-2xl font-semibold text-brand-red">Pareto de Costos G.2024-2025</h2>
-                    <p class="text-sm text-gray-500">Composición de los costos de la gestión actual.</p>
-                </div>
-                <button data-chart-type="cost" class="expandChartBtn bg-brand-red text-white px-4 py-2 rounded-lg hover:bg-brand-red-dark transition-colors">Ampliar Gráfico</button>
-            </div>
-            <div class="h-96">
-                 <canvas id="costParetoChart"></canvas>
-            </div>
-        </section>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-20">
+            <a href="#" class="text-white flex items-center space-x-2 px-4">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                <span class="text-2xl font-extrabold">Dashboard</span>
+            </a>
+            <nav>
+                <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="cbba">
+                   Cochabamba
+                </a>
+                <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="scz">
+                   Santa Cruz
+                </a>
+                <!-- Add new departments here -->
+            </nav>
+        </aside>
 
-        <!-- Pareto de Variaciones -->
-        <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
-            <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
-                <div>
-                    <h2 class="text-2xl font-semibold text-brand-red">Pareto de Variaciones (Nominal y Porcentual)</h2>
-                    <p class="text-sm text-gray-500">Identifica las cuentas con mayor impacto en el cambio de costos.</p>
-                </div>
-                <button data-chart-type="variation" class="expandChartBtn bg-brand-red text-white px-4 py-2 rounded-lg hover:bg-brand-red-dark transition-colors">Ampliar Gráfico</button>
+        <!-- Main Content -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            <div id="content-area">
+                <!-- Department content will be loaded here -->
             </div>
-            <div class="h-96">
-                 <canvas id="variationParetoChart"></canvas>
-            </div>
-        </section>
-
-        <!-- Sección de Premisas -->
-        <section class="bg-white p-6 rounded-lg shadow-md mt-8">
-            <h2 class="text-2xl font-semibold text-brand-red mb-4">Premisas de Incremento en el Pareto</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-3 pl-2">
-                <li><strong>Depreciacion del CD-ESMERALDA:</strong> 353.450</li>
-                <li><strong>Mantenimiento Interno:</strong> Incorporación de 5 nuevos técnicos.</li>
-                <li><strong>Energia electrica y Agua:</strong> Incremento por el Nuevo CD-ESMERALDA.</li>
-                <li><strong>Conectividad y comunicaciones:</strong> Las nuevas conexiones de red en el NCD (Enlace de datos). Las actuales se reducen a la mitad.</li>
-            </ul>
-        </section>
+        </main>
     </div>
 
     <!-- Modal para el Gráfico Ampliado -->
     <div id="chartModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
         <div class="bg-white p-6 rounded-lg shadow-xl w-full max-w-6xl h-full max-h-[90vh] relative flex flex-col">
             <div class="flex justify-between items-center mb-4">
-                 <h3 id="modalTitle" class="text-2xl font-semibold text-brand-red">Gráfico Ampliado</h3>
+                 <h3 id="modalTitle" class="text-2xl font-semibold">Gráfico Ampliado</h3>
                  <button id="closeModalBtn" class="text-gray-600 hover:text-gray-900 text-3xl font-bold">&times;</button>
             </div>
             <div class="flex-grow h-full">
@@ -139,186 +75,279 @@
 
 
     <script>
-        const costData = [
-            { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 191071, projected_value: 217821 },
-            { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 144213, projected_value: 164403 },
-            { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 17279, projected_value: 19871 },
-            { category: 'MANO DE OBRA', account: 'Horas Extras', value: 18920, projected_value: 21190 },
-            { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 12804, projected_value: 17925 },
-            { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 6395, projected_value: 6715 },
-            { category: 'Costos Fijos', account: 'Depreciacion', value: 63061, projected_value: 416511 },
-            { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 16385, projected_value: 16385 },
-            { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2253, projected_value: 5315 },
-            { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 3557, projected_value: 7113 },
-            { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 2160, projected_value: 2160 },
-            { category: 'Costos Fijos', account: 'Servicios Externos', value: 8368, projected_value: 9204 },
-            { category: 'Costos Fijos', account: 'Gastos Generales', value: 22360, projected_value: 41105 },
-            { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 638, projected_value: 638 },
-            { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 3130, projected_value: 3130 },
-            { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 8877, projected_value: 11540 },
-            { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 40938, projected_value: 109741 },
-            { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 22321, projected_value: 35714 },
-            { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 11519, projected_value: 14975 },
-            { category: 'Costos variables', account: 'Baja De Productos', value: 7105, projected_value: 7105 },
-            { category: 'Costos variables', account: 'Envases', value: 9868, projected_value: 11842 },
-            { category: 'Costos variables', account: 'Consumo De Hielo', value: 276, projected_value: 276 },
-            { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 58998, projected_value: 66078 },
-            { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 38427, projected_value: 46113 },
-            { category: 'Costos variables', account: 'Mantenimiento Interno', value: 8632, projected_value: 48632 },
-            { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 32521, projected_value: 37073 },
-            { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 17809, projected_value: 19946 },
-        ];
+        const departmentData = {
+            cbba: {
+                name: "Cochabamba Almacenaje",
+                theme: {
+                    main: 'blue',
+                    text: 'text-blue-800',
+                    kpiBg: 'bg-blue-100',
+                    kpiBorder: 'border-l-blue-700',
+                    kpiPastBorder: 'border-l-blue-400',
+                    kpiProposedBg: 'bg-blue-200',
+                    kpiProposedBorder: 'border-l-blue-800',
+                    chartBg: 'rgba(59, 130, 246, 0.6)',
+                    chartBorder: 'rgba(37, 99, 235, 1)'
+                },
+                kpis: {
+                    past: [
+                        { year: 'G.22-23', value: '0.45', obj: '0.46' },
+                        { year: 'G.23-24', value: '0.40', obj: '0.45' },
+                    ],
+                    current: { year: '(G.24-25)', value: '0.43', obj: '0.43' },
+                    proposed: { year: 'G.2025-2026', value: '0.71' }
+                },
+                costs: [
+                    { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 191071, projected_value: 217821 },
+                    { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 144213, projected_value: 164403 },
+                    { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 17279, projected_value: 19871 },
+                    { category: 'MANO DE OBRA', account: 'Horas Extras', value: 18920, projected_value: 21190 },
+                    { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 12804, projected_value: 17925 },
+                    { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 6395, projected_value: 6715 },
+                    { category: 'Costos Fijos', account: 'Depreciacion', value: 63061, projected_value: 416511 },
+                    { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 16385, projected_value: 16385 },
+                    { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2253, projected_value: 5315 },
+                    { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 3557, projected_value: 7113 },
+                    { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 2160, projected_value: 2160 },
+                    { category: 'Costos Fijos', account: 'Servicios Externos', value: 8368, projected_value: 9204 },
+                    { category: 'Costos Fijos', account: 'Gastos Generales', value: 22360, projected_value: 41105 },
+                    { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 638, projected_value: 638 },
+                    { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 3130, projected_value: 3130 },
+                    { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 8877, projected_value: 11540 },
+                    { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 40938, projected_value: 109741 },
+                    { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 22321, projected_value: 35714 },
+                    { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 11519, projected_value: 14975 },
+                    { category: 'Costos variables', account: 'Baja De Productos', value: 7105, projected_value: 7105 },
+                    { category: 'Costos variables', account: 'Envases', value: 9868, projected_value: 11842 },
+                    { category: 'Costos variables', account: 'Consumo De Hielo', value: 276, projected_value: 276 },
+                    { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 58998, projected_value: 66078 },
+                    { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 38427, projected_value: 46113 },
+                    { category: 'Costos variables', account: 'Mantenimiento Interno', value: 8632, projected_value: 48632 },
+                    { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 32521, projected_value: 37073 },
+                    { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 17809, projected_value: 19946 },
+                ],
+                premises: [
+                    '<strong>Depreciacion del CD-ESMERALDA:</strong> 353.450',
+                    '<strong>Mantenimiento Interno:</strong> Incorporación de 5 nuevos técnicos.',
+                    '<strong>Energia electrica y Agua:</strong> Incremento por el Nuevo CD-ESMERALDA.',
+                    '<strong>Conectividad y comunicaciones:</strong> Las nuevas conexiones de red en el NCD (Enlace de datos). Las actuales se reducen a la mitad.'
+                ]
+            },
+            scz: {
+                name: "Santa Cruz Almacenaje",
+                theme: {
+                    main: 'green',
+                    text: 'text-green-800',
+                    kpiBg: 'bg-green-100',
+                    kpiBorder: 'border-l-green-700',
+                    kpiPastBorder: 'border-l-green-400',
+                    kpiProposedBg: 'bg-green-200',
+                    kpiProposedBorder: 'border-l-green-800',
+                    chartBg: 'rgba(22, 163, 74, 0.6)',
+                    chartBorder: 'rgba(21, 128, 61, 1)'
+                },
+                kpis: {
+                    past: [
+                        { year: 'G.22-23', value: '0.47', obj: '0.50' },
+                        { year: 'G.23-24', value: '0.45', obj: '0.48' },
+                    ],
+                    current: { year: '(G.24-25)', value: '0.39', obj: '0.41' },
+                    proposed: { year: 'G.2025-2026', value: '0.45' }
+                },
+                costs: [
+                    { category: 'MANO DE OBRA', account: 'Sueldos Y Jornales', value: 529123, projected_value: 592617 },
+                    { category: 'MANO DE OBRA', account: 'Beneficios Sociales', value: 391231, projected_value: 438179 },
+                    { category: 'MANO DE OBRA', account: 'Gastos De Alimentacion', value: 50062, projected_value: 100241 },
+                    { category: 'MANO DE OBRA', account: 'Horas Extras', value: 87166, projected_value: 38277 },
+                    { category: 'MANO DE OBRA', account: 'Ropa De Trabajo', value: 35595, projected_value: 47847 },
+                    { category: 'MANO DE OBRA', account: 'Gastos Medicos Y Capacitacion', value: 8831, projected_value: 9138 },
+                    { category: 'Costos Fijos', account: 'Depreciacion', value: 665180, projected_value: 704180 },
+                    { category: 'Costos Fijos', account: 'Desgaste de Canastilla', value: 47812, projected_value: 47812 },
+                    { category: 'Costos Fijos', account: 'Cconectividad y comunicaciones', value: 2958, projected_value: 3106 },
+                    { category: 'Costos Fijos', account: 'Gastos legales y tributarios', value: 14484, projected_value: 14484 },
+                    { category: 'Costos Fijos', account: 'Sistemas tecnologicos', value: 1528, projected_value: 1528 },
+                    { category: 'Costos Fijos', account: 'Servicios Externos', value: 71571, projected_value: 137303 },
+                    { category: 'Costos Fijos', account: 'Gastos Generales', value: 35756, projected_value: 41120 },
+                    { category: 'Costos Fijos', account: 'Seguros Gral, Fletes De Producto', value: 902, projected_value: 902 },
+                    { category: 'Costos Fijos', account: 'Pasajes Y Viaticos', value: 473, projected_value: 473 },
+                    { category: 'Costos variables', account: 'Material Y Prod.Limpieza', value: 14769, projected_value: 19200 },
+                    { category: 'Costos variables', account: 'Energia Electrica Y Agua', value: 280000, projected_value: 280000 },
+                    { category: 'Costos variables', account: 'Mantenimiento Y Repuestos', value: 44251, projected_value: 57526 },
+                    { category: 'Costos variables', account: 'Materiales Escritorio Y Suministros', value: 20512, projected_value: 26666 },
+                    { category: 'Costos variables', account: 'Envases', value: 71002, projected_value: 85202 },
+                    { category: 'Costos variables', account: 'Baja De Productos', value: 2956, projected_value: 2956 },
+                    { category: 'Costos variables', account: 'Productos Quimicos', value: 3646, projected_value: 3646 },
+                    { category: 'Costos variables', account: 'Costo de Servicios Internos', value: 161827, projected_value: 181246 },
+                    { category: 'Costos variables', account: 'Costo de servicio de areas de soporte', value: 60623, projected_value: 67898 },
+                    { category: 'Costos variables', account: 'Mantenimiento Interno', value: 192644, projected_value: 215762 },
+                    { category: 'Costos variables', account: 'Costos Lav. Y Ctrol de Canastillas', value: 79022, projected_value: 88505 },
+                    { category: 'Costos variables', account: 'Costo Almacenaje Mat. Y Sum.', value: 36659, projected_value: 36659 },
+                ],
+                premises: [
+                    'Premisas para Santa Cruz (ejemplo).',
+                    'Ajuste en costos de logística por nuevas rutas.',
+                    'Inversión en tecnología de almacenamiento en frío.',
+                ]
+            }
+        };
 
-        let modalChartInstance = null; 
+        let modalChartInstance = null;
+        let activeCharts = [];
 
-        // --- Gráfico Pareto de Costos 24-25 ---
-        function createCostParetoChart(canvasId) {
+        function renderDepartment(deptKey) {
+            const data = departmentData[deptKey];
+            const theme = data.theme;
+            const contentArea = document.getElementById('content-area');
+            
+            contentArea.innerHTML = '';
+            activeCharts.forEach(chart => chart.destroy());
+            activeCharts = [];
+            
+            let pastKpisHtml = data.kpis.past.map(kpi => `
+                <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiPastBorder}">
+                    <p class="text-gray-500 text-sm font-medium">${kpi.year}</p>
+                    <p class="text-3xl font-bold text-gray-800 my-1">${kpi.value}</p>
+                    <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Cumplido
+                    </p>
+                    <p class="text-xs text-gray-500">Obj: ${kpi.obj}</p>
+                </div>
+            `).join('');
+
+            contentArea.innerHTML = `
+                <header class="text-center mb-8">
+                    <h1 class="text-3xl sm:text-4xl font-bold ${theme.text}">${data.name}</h1>
+                    <p class="text-gray-600 mt-2">G.2024-2025 vs. Proyección G.2025-2026</p>
+                </header>
+
+                <section class="mb-12">
+                    <h2 class="text-2xl font-semibold ${theme.text} mb-6 text-center">Costo Unitario (BS/KG)</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        ${pastKpisHtml}
+                        <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiBorder}">
+                            <p class="text-gray-600 text-sm font-medium">${data.kpis.current.year}</p>
+                            <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.current.value}</p>
+                            <p class="text-xs text-green-600 font-semibold flex items-center justify-center">
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                Cumplido
+                            </p>
+                            <p class="text-xs text-gray-500">Obj: ${data.kpis.current.obj}</p>
+                        </div>
+                        <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiProposedBg} ${theme.kpiProposedBorder}">
+                            <p class="text-gray-600 text-sm font-medium">OBJETIVO PROPUESTO</p>
+                            <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.proposed.value}</p>
+                            <p class="text-xs text-gray-500">${data.kpis.proposed.year}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
+                    <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+                        <div><h2 class="text-2xl font-semibold ${theme.text}">Pareto de Costos G.2024-2025</h2></div>
+                        <button data-chart-type="cost" class="expandChartBtn bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Ampliar</button>
+                    </div>
+                    <div class="h-96"><canvas id="costParetoChart"></canvas></div>
+                </section>
+
+                <section class="bg-white p-6 rounded-lg shadow-md mt-8 mb-8">
+                    <div class="flex flex-wrap justify-between items-center mb-4 gap-4">
+                        <div><h2 class="text-2xl font-semibold ${theme.text}">Pareto de Variaciones</h2></div>
+                        <button data-chart-type="variation" class="expandChartBtn bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Ampliar</button>
+                    </div>
+                    <div class="h-96"><canvas id="variationParetoChart"></canvas></div>
+                </section>
+
+                <section class="bg-white p-6 rounded-lg shadow-md mt-8">
+                    <h2 class="text-2xl font-semibold ${theme.text} mb-4">Premisas de Incremento en el Pareto</h2>
+                    <ul class="list-disc list-inside text-gray-700 space-y-3 pl-2">${data.premises.map(p => `<li>${p}</li>`).join('')}</ul>
+                </section>
+            `;
+
+            activeCharts.push(createCostParetoChart('costParetoChart', data.costs, theme));
+            activeCharts.push(createVariationParetoChart('variationParetoChart', data.costs, theme));
+            
+            attachModalListeners(data.costs, theme);
+        }
+        
+        function createCostParetoChart(canvasId, costData, theme) {
             const sortedData = [...costData].sort((a, b) => b.value - a.value);
             const labels = sortedData.map(item => item.account);
             const dataValues = sortedData.map(item => item.value);
             const totalCost = dataValues.reduce((sum, value) => sum + value, 0);
-
             let cumulativePercentage = 0;
-            const paretoData = dataValues.map(value => {
-                cumulativePercentage += (value / totalCost) * 100;
-                return cumulativePercentage;
-            });
-
+            const paretoData = dataValues.map(value => (cumulativePercentage += (value / totalCost) * 100));
             const ctx = document.getElementById(canvasId).getContext('2d');
             return new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Costo (Bs)',
-                        data: dataValues,
-                        backgroundColor: 'rgba(153, 27, 27, 0.6)',
-                        yAxisID: 'y',
-                    }, {
-                        label: 'Acumulado',
-                        data: paretoData,
-                        type: 'line',
-                        borderColor: 'rgba(220, 38, 38, 1)',
-                        yAxisID: 'y1',
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    scales: {
-                        x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } },
-                        y: { type: 'linear', position: 'left', title: { display: true, text: 'Costo (Bs)' } },
-                        y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: value => value.toFixed(0) + '%' } }
-                    },
-                    plugins: { tooltip: { callbacks: { label: context => `${context.dataset.label}: ${context.dataset.yAxisID === 'y1' ? context.parsed.y.toFixed(2) + '%' : context.parsed.y.toLocaleString('es-BO')}` } } }
-                }
+                data: { labels, datasets: [{ label: 'Costo (Bs)', data: dataValues, backgroundColor: theme.chartBg, yAxisID: 'y' }, { label: 'Acumulado', data: paretoData, type: 'line', borderColor: theme.chartBorder, yAxisID: 'y1' }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } }, y: { type: 'linear', position: 'left', title: { display: true, text: 'Costo (Bs)' } }, y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: v => v.toFixed(0) + '%' } } }, plugins: { tooltip: { callbacks: { label: c => `${c.dataset.label}: ${c.dataset.yAxisID === 'y1' ? c.parsed.y.toFixed(2) + '%' : c.parsed.y.toLocaleString('es-BO')}` } } } }
             });
         }
 
-        // --- Gráfico Pareto de Variaciones ---
-        function createVariationParetoChart(canvasId) {
-            const variationsData = costData.map(item => {
-                const nominalVariation = item.projected_value - item.value;
-                const percentageVariation = item.value !== 0 ? (nominalVariation / item.value) * 100 : 0;
-                return { account: item.account, nominalVariation, percentageVariation };
-            }).filter(item => item.nominalVariation > 0);
-
-            variationsData.sort((a, b) => b.percentageVariation - a.percentageVariation);
-
+        function createVariationParetoChart(canvasId, costData, theme) {
+            const variationsData = costData.map(item => ({ account: item.account, nominalVariation: item.projected_value - item.value, percentageVariation: item.value !== 0 ? ((item.projected_value - item.value) / item.value) * 100 : 0 })).filter(item => item.nominalVariation > 0).sort((a, b) => b.percentageVariation - a.percentageVariation);
             const labels = variationsData.map(item => item.account);
             const nominalValues = variationsData.map(item => item.nominalVariation);
             const percentageValues = variationsData.map(item => item.percentageVariation);
-            
             const totalNominalVariation = nominalValues.reduce((sum, value) => sum + value, 0);
-
             let cumulativePercentage = 0;
-            const paretoData = nominalValues.map(value => {
-                cumulativePercentage += (value / totalNominalVariation) * 100;
-                return cumulativePercentage;
-            });
-
+            const paretoData = nominalValues.map(value => (cumulativePercentage += (value / totalNominalVariation) * 100));
             const ctx = document.getElementById(canvasId).getContext('2d');
             return new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Variación (%)',
-                        data: percentageValues,
-                        backgroundColor: 'rgba(153, 27, 27, 0.6)',
-                        yAxisID: 'y',
-                    }, {
-                        label: 'Acumulado',
-                        data: paretoData,
-                        type: 'line',
-                        borderColor: 'rgba(220, 38, 38, 1)',
-                        yAxisID: 'y1',
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    scales: {
-                        x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } },
-                        y: { type: 'linear', position: 'left', title: { display: true, text: 'Variación Individual (%)' }, ticks: { callback: value => value.toFixed(0) + '%' } },
-                        y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado del Impacto Total (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: value => value.toFixed(0) + '%' } }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: context => {
-                                    if (context.dataset.yAxisID === 'y1') {
-                                        return `Acumulado: ${context.parsed.y.toFixed(2)}%`;
-                                    }
-                                    const index = context.dataIndex;
-                                    const percentage = percentageValues[index].toFixed(2);
-                                    const nominal = nominalValues[index].toLocaleString('es-BO');
-                                    return `Var. %: ${percentage}% (Var. Bs: ${nominal})`;
-                                }
-                            }
-                        }
-                    }
-                }
+                data: { labels, datasets: [{ label: 'Variación (%)', data: percentageValues, backgroundColor: theme.chartBg, yAxisID: 'y' }, { label: 'Acumulado', data: paretoData, type: 'line', borderColor: theme.chartBorder, yAxisID: 'y1' }] },
+                options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { autoSkip: false, maxRotation: 90, minRotation: 90, font: { size: 10 } } }, y: { type: 'linear', position: 'left', title: { display: true, text: 'Variación Individual (%)' }, ticks: { callback: v => v.toFixed(0) + '%' } }, y1: { type: 'linear', position: 'right', min: 0, max: 100, title: { display: true, text: 'Acumulado del Impacto Total (%)' }, grid: { drawOnChartArea: false }, ticks: { callback: v => v.toFixed(0) + '%' } } }, plugins: { tooltip: { callbacks: { label: c => c.dataset.yAxisID === 'y1' ? `Acumulado: ${c.parsed.y.toFixed(2)}%` : `Var. %: ${percentageValues[c.dataIndex].toFixed(2)}% (Var. Bs: ${nominalValues[c.dataIndex].toLocaleString('es-BO')})` } } } }
             });
         }
 
-        // Crear gráficos iniciales
-        createCostParetoChart('costParetoChart');
-        createVariationParetoChart('variationParetoChart');
-
-        // --- Lógica del Modal ---
         const modal = document.getElementById('chartModal');
         const modalTitle = document.getElementById('modalTitle');
         const closeModalBtn = document.getElementById('closeModalBtn');
+        
+        function attachModalListeners(costData, theme) {
+            document.querySelectorAll('.expandChartBtn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const chartType = event.currentTarget.getAttribute('data-chart-type');
+                    if (modalChartInstance) modalChartInstance.destroy();
+                    modalTitle.className = `text-2xl font-semibold ${theme.text}`;
+                    if (chartType === 'cost') {
+                        modalTitle.textContent = 'Pareto de Costos G.2024-2025 (Ampliado)';
+                        modalChartInstance = createCostParetoChart('modalChartCanvas', costData, theme);
+                    } else if (chartType === 'variation') {
+                        modalTitle.textContent = 'Pareto de Variaciones (Ampliado)';
+                        modalChartInstance = createVariationParetoChart('modalChartCanvas', costData, theme);
+                    }
+                    modal.style.display = 'flex';
+                });
+            });
+        }
+        
+        closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
+        modal.addEventListener('click', (event) => { if (event.target === modal) modal.style.display = 'none'; });
 
-        document.querySelectorAll('.expandChartBtn').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const chartType = event.currentTarget.getAttribute('data-chart-type');
-                
-                if (modalChartInstance) {
-                    modalChartInstance.destroy();
-                }
+        const sidebar = document.getElementById('sidebar');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
 
-                if (chartType === 'cost') {
-                    modalTitle.textContent = 'Pareto de Costos G.2024-2025 (Ampliado)';
-                    modalChartInstance = createCostParetoChart('modalChartCanvas');
-                } else if (chartType === 'variation') {
-                    modalTitle.textContent = 'Pareto de Variaciones (Ampliado)';
-                    modalChartInstance = createVariationParetoChart('modalChartCanvas');
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('bg-gray-700'));
+                e.currentTarget.classList.add('bg-gray-700');
+                const deptKey = e.currentTarget.getAttribute('data-dept');
+                renderDepartment(deptKey);
+                if (window.innerWidth < 768) { // md breakpoint
+                    sidebar.classList.add('-translate-x-full');
                 }
-                
-                modal.style.display = 'flex';
             });
         });
 
-        const closeModal = () => {
-            modal.style.display = 'none';
-        };
-
-        closeModalBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeModal();
-            }
-        });
+        navLinks[0].classList.add('bg-gray-700');
+        renderDepartment('cbba');
 
     </script>
 </body>
