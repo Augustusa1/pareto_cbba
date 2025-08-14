@@ -20,6 +20,9 @@
         #sidebar {
             transition: transform 0.3s ease-in-out;
         }
+        .kpi-value {
+            line-height: 1.1;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -42,6 +45,9 @@
                 <span class="text-2xl font-extrabold">Dashboard</span>
             </a>
             <nav id="department-nav">
+                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="nacional">
+                   Nacional
+                </a>
                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="cbba">
                    Cochabamba
                 </a>
@@ -53,6 +59,9 @@
                 </a>
                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="trinidad">
                    Trinidad
+                </a>
+                 <a href="#" class="nav-link block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" data-dept="lpz">
+                   La Paz
                 </a>
                 <!-- Add new departments here -->
             </nav>
@@ -82,6 +91,40 @@
 
     <script>
         const departmentData = {
+            nacional: {
+                almacenaje: {
+                    name: "Nacional",
+                    theme: { main: 'gray', text: 'text-gray-800', kpiBg: 'bg-gray-100', kpiBorder: 'border-l-gray-700', kpiPastBorder: 'border-l-gray-400', kpiProposedBg: 'bg-gray-200', kpiProposedBorder: 'border-l-gray-800', chartBg: 'rgba(107, 114, 128, 0.6)', chartBorder: 'rgba(55, 65, 81, 1)' },
+                    kpis: { 
+                        past: [
+                            { year: 'G.22-23', value: '0.38', obj: '0.38', met: true }, 
+                            { year: 'G.23-24', value: '0.38', obj: '0.38', met: true }
+                        ], 
+                        current: { year: 'G.24-25 (FAE + FC)', value: '0.48', obj: '0.53', met: true }, 
+                        proposed: { year: 'G.2025-2026', title: 'OBJETIVO PROPUESTO (FAE + FC)', value: '0.58' } 
+                    },
+                    costs: [
+                        { account: 'Sueldos Y Jornales', value: 1088835, projected_value: 1316584 }, { account: 'Beneficios Sociales', value: 795012, projected_value: 962813 }, { account: 'Gastos De Alimentacion', value: 109072, projected_value: 134762 }, { account: 'Horas Extras', value: 153332, projected_value: 188647 }, { account: 'Ropa De Trabajo', value: 68260, projected_value: 104748 }, { account: 'Gastos Medicos Y Capacitacion', value: 23534, projected_value: 26008 }, { account: 'Depreciacion', value: 967692, projected_value: 1434896 }, { account: 'Desgaste de Canastilla', value: 90783, projected_value: 93142 }, { account: 'Cconectividad y comunicaciones', value: 26940, projected_value: 28751 }, { account: 'Gastos legales y tributarios', value: 32929, projected_value: 38476 }, { account: 'Sistemas tecnologicos', value: 4734, projected_value: 8277 }, { account: 'Servicios Externos', value: 200385, projected_value: 305681 }, { account: 'Gastos Generales', value: 114261, projected_value: 169437 }, { account: 'Seguros Gral, Fletes De Producto', value: 1386, projected_value: 1540 }, { account: 'Pasajes Y Viaticos', value: 13277, projected_value: 13277 }, { account: 'Material Y Prod.Limpieza', value: 35819, projected_value: 50203 }, { account: 'Energia Electrica Y Agua', value: 429265, projected_value: 580764 }, { account: 'Mantenimiento Y Repuestos', value: 103700, projected_value: 171619 }, { account: 'Materiales Escritorio Y Suministros', value: 42550, projected_value: 59027 }, { account: 'Envases', value: 137016, projected_value: 185263 }, { account: 'Consumo De Hielo', value: 248, projected_value: 276 }, { account: 'Productos Quimicos', value: 3340, projected_value: 4376 }, { account: 'baja de productos', value: 14447, projected_value: 11774 }, { account: 'Costo de Servicios Internos', value: 370917, projected_value: 434307 }, { account: 'Costo de servicio de areas de soporte', value: 152345, projected_value: 184795 }, { account: 'Mantenimiento Interno', value: 291083, projected_value: 388817 }, { account: 'Costos Lav. Y Ctrol de Canastillas', value: 159155, projected_value: 191397 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 1189, projected_value: 2314 }
+                    ],
+                    premises: [ '<strong>Depreciación:</strong> Apertura del CD-ESMERALDA y la ampliación del almacén de secos en SC.', '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383 (5% al haber básico y 10% al salario mínimo nacional).', '<strong>Energía Eléctrica y Agua:</strong> Incremento por la apertura de NCD-ESMERALDA.', '<strong>Servicios Externos:</strong> Se estimó un 10% por la inflación. En esta cuenta lo que más impacta son los jornaleros y además del servicio de limpieza de cámaras/antecámaras y racks.' ]
+                },
+                transporte: {
+                    name: "Nacional Transporte",
+                    theme: { main: 'gray', text: 'text-gray-800', kpiBg: 'bg-gray-100', kpiBorder: 'border-l-gray-700', kpiPastBorder: 'border-l-gray-400', kpiProposedBg: 'bg-gray-200', kpiProposedBorder: 'border-l-gray-800', chartBg: 'rgba(107, 114, 128, 0.6)', chartBorder: 'rgba(55, 65, 81, 1)' },
+                    kpis: { 
+                        past: [
+                            { year: 'G.22-23', value: '0.41', obj: '0.40', met: false }, 
+                            { year: 'G.23-24', value: '0.41', obj: '0.39', met: false }
+                        ], 
+                        current: { year: 'G.24-25', value: '0.43', obj: '0.39', met: false }, 
+                        proposed: { year: 'G.2025-2026', value: '0.49' } 
+                    },
+                    costs: [ 
+                        { account: 'Sueldos Y Jornales', value: 919992, projected_value: 1033365 }, { account: 'Beneficios Sociales', value: 728253, projected_value: 817969 }, { account: 'Gastos De Alimentacion', value: 101735, projected_value: 117503 }, { account: 'Horas Extras', value: 236457, projected_value: 264832 }, { account: 'Ropa De Trabajo', value: 72673, projected_value: 101514 }, { account: 'Gastos Medicos Y Capacitacion', value: 17999, projected_value: 18899 }, { account: 'Depreciacion', value: 100819, projected_value: 104575 }, { account: 'Desgaste de Canastilla', value: 61815, projected_value: 61815 }, { account: 'Cconectividad y comunicaciones', value: 15662, projected_value: 16374 }, { account: 'Gastos legales y tributarios', value: 29840, projected_value: 29840 }, { account: 'Sistemas tecnologicos', value: 53930, projected_value: 58685 }, { account: 'Servicios Externos', value: 183382, projected_value: 253520 }, { account: 'Gastos Generales', value: 50319, projected_value: 56296 }, { account: 'Seguros Gral, Fletes De Producto', value: 2037610, projected_value: 2445132 }, { account: 'Pasajes Y Viaticos', value: 5395, projected_value: 6224 }, { account: 'Material Y Prod.Limpieza', value: 8049, projected_value: 10491 }, { account: 'Energia Electrica Y Agua', value: 19404, projected_value: 23240 }, { account: 'Mantenimiento Y Repuestos', value: 14419, projected_value: 7277 }, { account: 'Materiales Escritorio Y Suministros', value: 27725, projected_value: 36131 }, { account: 'Envases', value: 37559, projected_value: 45570 }, { account: 'Productos Quimicos', value: 49, projected_value: 53 }, { account: 'baja de productos', value: 1173, projected_value: 1173 }, { account: 'Costo de Servicios Internos', value: 434213, projected_value: 488141 }, { account: 'Costo de servicio de areas de soporte', value: 47463, projected_value: 53865 }, { account: 'Mantenimiento Interno', value: 1010, projected_value: 1131 }, { account: 'Costos Lav. Y Ctrol de Canastillas', value: 101520, projected_value: 113702 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 23835, projected_value: 29184 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Servicios Externos:</strong> Se estimó un 10% por la inflación a nivel nacional. Contratación de personal eventual (Lebrant) e incremento por pago de seguro de transporte de personal 15% (LA PAZ).' ]
+                }
+            },
             cbba: {
                 almacenaje: {
                     name: "Cochabamba Almacenaje",
@@ -161,6 +204,26 @@
                     ],
                     premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.' ]
                 }
+            },
+            lpz: {
+                 almacenaje: {
+                    name: "La Paz Almacenaje",
+                    theme: { main: 'red', text: 'text-red-800', kpiBg: 'bg-red-100', kpiBorder: 'border-l-red-700', kpiPastBorder: 'border-l-red-400', kpiProposedBg: 'bg-red-200', kpiProposedBorder: 'border-l-red-800', chartBg: 'rgba(220, 38, 38, 0.6)', chartBorder: 'rgba(185, 28, 28, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.28', obj: '0.27', met: false }, { year: 'G.23-24', value: '0.30', obj: '0.28', met: false }], current: { year: '(G.24-25)', value: '0.34', obj: '0.30', met: false }, proposed: { year: 'G.2025-2026', value: '0.37' } },
+                    costs: [
+                        { account: 'Sueldos Y Jornales', value: 412386, projected_value: 470120 }, { account: 'Beneficios Sociales', value: 291095, projected_value: 331848 }, { account: 'Gastos De Alimentacion', value: 47042, projected_value: 54098 }, { account: 'Horas Extras', value: 58719, projected_value: 65766 }, { account: 'Ropa De Trabajo', value: 20813, projected_value: 29139 }, { account: 'Gastos Medicos Y Capacitacion', value: 9821, projected_value: 10312 }, { account: 'Depreciacion', value: 282475, projected_value: 282475 }, { account: 'Desgaste de Canastilla', value: 23411, projected_value: 23411 }, { account: 'Cconectividad y comunicaciones', value: 3978, projected_value: 4177 }, { account: 'Gastos legales y tributarios', value: 16492, projected_value: 16492 }, { account: 'Sistemas tecnologicos', value: 3613, projected_value: 3613 }, { account: 'Servicios Externos', value: 137579, projected_value: 151336 }, { account: 'Gastos Generales', value: 52475, projected_value: 55099 }, { account: 'Pasajes Y Viaticos', value: 5796, projected_value: 5796 }, { account: 'Material Y Prod.Limpieza', value: 11745, projected_value: 15269 }, { account: 'Energia Electrica Y Agua', value: 112533, projected_value: 112533 }, { account: 'Mantenimiento Y Repuestos', value: 52082, projected_value: 67706 }, { account: 'Materiales Escritorio Y Suministros', value: 9583, projected_value: 9583 }, { account: 'Envases', value: 69470, projected_value: 83364 }, { account: 'Productos Quimicos', value: 58, projected_value: 58 }, { account: 'baja de productos', value: 1532, projected_value: 1532 }, { account: 'Costo de Servicios Internos', value: 112018, projected_value: 125460 }, { account: 'Costo de servicio de areas de soporte', value: 63199, projected_value: 70783 }, { account: 'Mantenimiento Interno', value: 107034, projected_value: 107034 }, { account: 'Costos Lav. Y Ctrol de Canastillas', value: 58767, projected_value: 65819 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 4872, projected_value: 4872 }
+                    ],
+                    premises: [ '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383; además de la incorporación de 3 ayudantes de almacén.', '<strong>Mantenimiento y Repuestos:</strong> Se estimó un incremento del 30% debido al impacto de la inflación.', '<strong>Servicios Externos:</strong> Incremento del 10% por inflación. En esta cuenta lo que más impacta es los jornaleros y además del servicio de limpieza de cámaras/antecámaras y racks.' ]
+                },
+                 transporte: {
+                    name: "La Paz Transporte",
+                    theme: { main: 'red', text: 'text-red-800', kpiBg: 'bg-red-100', kpiBorder: 'border-l-red-700', kpiPastBorder: 'border-l-red-400', kpiProposedBg: 'bg-red-200', kpiProposedBorder: 'border-l-red-800', chartBg: 'rgba(220, 38, 38, 0.6)', chartBorder: 'rgba(185, 28, 28, 1)' },
+                    kpis: { past: [{ year: 'G.22-23', value: '0.35', obj: '0.30', met: false }, { year: 'G.23-24', value: '0.37', obj: '0.35', met: false }], current: { year: '(G.24-25)', value: '0.41', obj: '0.37', met: false }, proposed: { year: 'G.2025-2026', value: '0.47' } },
+                    costs: [
+                        { account: 'Sueldos Y Jornales', value: 424848, projected_value: 478803 }, { account: 'Beneficios Sociales', value: 332297, projected_value: 374499 }, { account: 'Gastos De Alimentacion', value: 49778, projected_value: 57245 }, { account: 'Horas Extras', value: 84056, projected_value: 94143 }, { account: 'Ropa De Trabajo', value: 20930, projected_value: 29302 }, { account: 'Gastos Medicos Y Capacitacion', value: 8414, projected_value: 8835 }, { account: 'Depreciacion', value: 43978, projected_value: 43978 }, { account: 'Desgaste de Canastilla', value: 21179, projected_value: 21179 }, { account: 'Cconectividad y comunicaciones', value: 8670, projected_value: 9104 }, { account: 'Gastos legales y tributarios', value: 16475, projected_value: 16475 }, { account: 'Sistemas tecnologicos', value: 22855, projected_value: 25753 }, { account: 'Servicios Externos', value: 83026, projected_value: 117582 }, { account: 'Gastos Generales', value: 25735, projected_value: 27022 }, { account: 'Seguros Gral, Fletes De Producto', value: 770865, projected_value: 925038 }, { account: 'Pasajes Y Viaticos', value: 3258, projected_value: 3258 }, { account: 'Material Y Prod.Limpieza', value: 2712, projected_value: 3526 }, { account: 'Energia Electrica Y Agua', value: 6314, projected_value: 6314 }, { account: 'Mantenimiento Y Repuestos', value: 4483, projected_value: 5828 }, { account: 'Materiales Escritorio Y Suministros', value: 14158, projected_value: 18406 }, { account: 'Envases', value: 37049, projected_value: 45570 }, { account: 'Baja De Productos', value: 377, projected_value: 377 }, { account: 'Costo de Servicios Internos', value: 173543, projected_value: 196104 }, { account: 'Costo de servicio de areas de soporte', value: 19524, projected_value: 21867 }, { account: 'Costos Lav. Y Ctrol de Canastillas', value: 58767, projected_value: 65819 }, { account: 'Costo Almacenaje Mat. Y Sum.', value: 3903, projected_value: 4372 }
+                    ],
+                    premises: [ '<strong>Flete:</strong> El incremento proyectado es de hasta 20%, sin garantizar que se llegue al techo máximo.', '<strong>Sueldos y Jornales, Beneficios Sociales, Costo de Servicios Internos:</strong> Incremento del 12% promedio por el Decreto Supremo N° 5383.', '<strong>Servicios Externos:</strong> Incremento del 20% por contratación de personal eventual (Lebrant) y aumento del 15% en el seguro de transporte de personal.' ]
+                }
             }
         };
 
@@ -200,12 +263,54 @@
                     <p class="text-xs text-gray-500">Obj: ${kpi.obj}</p>
                 </div>
             `).join('');
-
+            
             const areaTabs = Object.keys(departmentData[deptKey]).map(area => `
                 <button class="area-tab px-4 py-2 text-sm font-medium rounded-t-lg ${area === areaKey ? `${theme.text} border-b-2 ${theme.kpiBorder}` : 'text-gray-500'}" data-area="${area}">
                     ${area.charAt(0).toUpperCase() + area.slice(1)}
                 </button>
             `).join('');
+
+            let currentKpiHtml = `
+                <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiBorder}">
+                    <p class="text-gray-600 text-sm font-medium">${data.kpis.current.year}</p>
+                    <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.current.value}</p>
+                    <p class="text-xs font-semibold flex items-center justify-center ${data.kpis.current.met ? 'text-green-600' : 'text-red-600'}">
+                        ${data.kpis.current.met ? metIcon : notMetIcon}
+                        ${data.kpis.current.met ? 'Cumplido' : 'Incumplido'}
+                    </p>
+                    <p class="text-xs text-gray-500">Obj: ${data.kpis.current.obj}</p>
+                </div>`;
+
+            let proposedKpiHtml = `
+                <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiProposedBg} ${theme.kpiProposedBorder}">
+                    <p class="text-gray-600 text-sm font-medium">${data.kpis.proposed.title || 'OBJETIVO PROPUESTO'}</p>
+                    <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.proposed.value}</p>
+                    <p class="text-xs text-gray-500">${data.kpis.proposed.year}</p>
+                </div>`;
+            
+            if(deptKey === 'nacional'){
+                currentKpiHtml = `
+                <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiBorder}">
+                    <p class="text-gray-600 text-sm font-medium">${data.kpis.current.year}</p>
+                    <div class="my-1">
+                        <p class="text-3xl font-bold ${theme.text} kpi-value">${data.kpis.current.value}</p>
+                    </div>
+                    <p class="text-xs font-semibold flex items-center justify-center ${data.kpis.current.met ? 'text-green-600' : 'text-red-600'}">
+                        ${data.kpis.current.met ? metIcon : notMetIcon}
+                        ${data.kpis.current.met ? 'Cumplido' : 'Incumplido'}
+                    </p>
+                    <p class="text-xs text-gray-500">Obj: ${data.kpis.current.obj}</p>
+                </div>`;
+                 proposedKpiHtml = `
+                <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiProposedBg} ${theme.kpiProposedBorder}">
+                    <p class="text-gray-600 text-sm font-medium">${data.kpis.proposed.title || 'OBJETIVO PROPUESTO'}</p>
+                    <div class="my-1">
+                        <p class="text-3xl font-bold ${theme.text} kpi-value">${data.kpis.proposed.value}</p>
+                    </div>
+                    <p class="text-xs text-gray-500">${data.kpis.proposed.year}</p>
+                </div>`;
+            }
+
 
             contentArea.innerHTML = `
                 <header class="text-center mb-4">
@@ -223,20 +328,8 @@
                     <h2 class="text-2xl font-semibold ${theme.text} mb-6 text-center">Costo Unitario (BS/KG)</h2>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         ${pastKpisHtml}
-                        <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiBg} ${theme.kpiBorder}">
-                            <p class="text-gray-600 text-sm font-medium">${data.kpis.current.year}</p>
-                            <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.current.value}</p>
-                            <p class="text-xs font-semibold flex items-center justify-center ${data.kpis.current.met ? 'text-green-600' : 'text-red-600'}">
-                                ${data.kpis.current.met ? metIcon : notMetIcon}
-                                ${data.kpis.current.met ? 'Cumplido' : 'Incumplido'}
-                            </p>
-                            <p class="text-xs text-gray-500">Obj: ${data.kpis.current.obj}</p>
-                        </div>
-                        <div class="kpi-card p-4 rounded-lg shadow-md text-center ${theme.kpiProposedBg} ${theme.kpiProposedBorder}">
-                            <p class="text-gray-600 text-sm font-medium">OBJETIVO PROPUESTO</p>
-                            <p class="text-3xl font-bold ${theme.text} my-1">${data.kpis.proposed.value}</p>
-                            <p class="text-xs text-gray-500">${data.kpis.proposed.year}</p>
-                        </div>
+                        ${currentKpiHtml}
+                        ${proposedKpiHtml}
                     </div>
                 </section>
 
@@ -337,7 +430,8 @@
                 document.querySelectorAll('#department-nav .nav-link').forEach(l => l.classList.remove('bg-gray-700'));
                 e.currentTarget.classList.add('bg-gray-700');
                 const deptKey = e.currentTarget.getAttribute('data-dept');
-                renderContent(deptKey, 'almacenaje'); // Default to 'almacenaje'
+                const firstArea = Object.keys(departmentData[deptKey])[0];
+                renderContent(deptKey, firstArea);
                 if (window.innerWidth < 768) {
                     sidebar.classList.add('-translate-x-full');
                 }
@@ -353,8 +447,8 @@
             });
         }
 
-        document.querySelector('#department-nav .nav-link').classList.add('bg-gray-700');
-        renderContent('cbba', 'almacenaje');
+        document.querySelector('#department-nav .nav-link[data-dept="nacional"]').classList.add('bg-gray-700');
+        renderContent('nacional', 'almacenaje');
 
     </script>
 </body>
